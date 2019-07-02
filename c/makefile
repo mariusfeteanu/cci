@@ -1,7 +1,7 @@
 OBJECTS=
 CFLAGS=-g -Wall -O1 -pedantic -std=c11
 LDLIBS=
-CC=gcc
+CC=cc
 
 all: array_unique array_permutation
 
