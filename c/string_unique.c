@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <assert.h>
 
-int is_unique(char *array){
+int is_unique(char *input){
     // char is 8 bits
     // 255 possible values (we stop on NULL)
     // but we allocate it anyway to keep things readable
     char found[256] = {0};
 
-    while(*array){
-        if(found[(int)array[0]]){
+    while(*input){
+        if(found[(int)input[0]]){
             return 0;
         }
         else {
-            found[(int)array[0]] = 1;
+            found[(int)input[0]] = 1;
         }
-        array++;
+        input++;
     }
   return 1;
 }
