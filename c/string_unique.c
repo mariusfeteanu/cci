@@ -38,6 +38,7 @@ void test_is_unique_empty(){
 }
 
 int main(){
+    setbuf(stdout, NULL);
     test_is_unique();
     test_is_not_unique();
     test_is_unique_empty();

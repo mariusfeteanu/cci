@@ -33,6 +33,7 @@ void test_is_not_palin_anagram(char *s){
 }
 
 int main(){
+    setbuf(stdout, NULL);
     test_is_palin_anagram("tact coa");
     test_is_palin_anagram("");
     test_is_not_palin_anagram("aaab");

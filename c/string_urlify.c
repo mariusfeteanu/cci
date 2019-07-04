@@ -31,6 +31,7 @@ void test_urilify(char a[], char e[], int l){
 }
 
 int main(){
+    setbuf(stdout, NULL);
     char s1[] = "Mr John Smith    ";
     char e1[] = "Mr%20John%20Smith";
     test_urilify(s1, e1, 13);

@@ -61,6 +61,7 @@ void test_is_permutation_empty(){
 }
 
 int main(){
+     setbuf(stdout, NULL);
      test_is_permutation();
      test_is_not_permutation();
      test_is_not_permutation_samechars();
