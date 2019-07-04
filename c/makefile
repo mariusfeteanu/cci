@@ -5,16 +5,18 @@ CC=cc
 
 # All files that have a .c extension in the current dir
 # But without the extension
-PROGRAMS=$(shell ls *.c | cut -d "." -f 1)
+PROGRAMS=$(patsubst %.c,%,$(wildcard *.c))
+REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
 
-# Use default make rules to build
-*.report: $(PROGRAMS)
-	for t in $?; do \
-	echo "### Testing [$$t] ###" \
-	rm -f $$t.report && \
-	./$$t >$$t.report && \
-	cat $$t.report; \
-	done
+test: $(REPORTS) 
+
+%.report: %
+	# remove old report
+	rm -f $@
+	# run the program and redirect stdout to report file
+	./$* > $@
+	# show the report on screen
+	cat $@
 
 # Use default make rules to build
 build: $(PROGRAMS)
