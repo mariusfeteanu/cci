@@ -59,4 +59,5 @@ int main(){
     test_is_close("", "");
     test_is_close("", "a");
     test_is_not_close("dsadsa", "3jdsa0");
+    test_is_close("apple", "aple");
 }
