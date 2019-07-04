@@ -11,12 +11,7 @@ REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
 test: $(REPORTS) 
 
 %.report: %
-	# remove old report
-	rm -f $@
-	# run the program and redirect stdout to report file
-	./$* > $@
-	# show the report on screen
-	cat $@
+	rm -f $@ && set -o pipefail && ./$* | tee $@
 
 # Use default make rules to build
 build: $(PROGRAMS)
