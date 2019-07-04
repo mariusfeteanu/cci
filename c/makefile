@@ -3,29 +3,23 @@ CFLAGS=-g -Wall -Werror -O1 -pedantic -std=c11
 LDLIBS=
 CC=cc
 
-test: string_unique \
-      string_permutation \
-      string_urlify \
-      string_palin_anagarm
-	./string_unique
-	./string_permutation
-	./string_urlify
-	./string_palin_anagarm
+# All files that have a .c extension in the current dir
+# But without the extension
+PROGRAMS=$(shell ls *.c | cut -d "." -f 1)
 
-build: string_unique \
-       string_permutation \
-       string_urlify \
-       string_palin_anagarm
+# Use default make rules to build
+*.report: $(PROGRAMS)
+	for t in $?; do \
+	echo "### Testing [$$t] ###" \
+	rm -f $$t.report && \
+	./$$t >$$t.report && \
+	cat $$t.report; \
+	done
 
-string_unique: $(OBJECTS)
-string_permutation: $(OBJECTS)
-string_urlify: $(OBJECTS)
-string_palin_anagarm: $(OBJECTS)
+# Use default make rules to build
+build: $(PROGRAMS)
 
 clean:
-	rm -f \
-	string_unique \
-	string_permutation \
-	string_urlify \
-	string_palin_anagarm
-
+	for f in $(PROGRAMS); do \
+	rm -fr $$f $$f.report $$f.dSYM; \
+	done
