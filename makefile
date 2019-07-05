@@ -20,3 +20,8 @@ clean:
 	for f in $(PROGRAMS); do \
 	rm -fr $$f $$f.report $$f.dSYM; \
 	done
+
+%.travis: %
+	./$*
+
+travis: $(patsubst %.c,%.travis,$(wildcard *.c))
