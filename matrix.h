@@ -8,6 +8,16 @@ typedef struct matrix_s {
 #define mx_get(m, r, c) ((m).data[(r)*(m).ncols + (c)])
 #define mx_set(m, r, c, v) ((m).data[(r)*(m).ncols + (c)] = v)
 
+int mx_eq(matrix left, matrix right){
+    if(left.nrows != right.nrows) return 0;
+    if(left.ncols != right.ncols) return 0;
+
+    for(int i=0; i<(left.nrows*left.ncols); i++){
+        if(left.data[i] != right.data[i]) return 0;
+    }
+    return 1;
+}
+
 void mx_print(matrix m){
   printf("matrix (%d rows x %d columns):\n", m.nrows, m.ncols);
   for(int i = 0; i < m.nrows; i++){

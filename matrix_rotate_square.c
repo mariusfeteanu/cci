@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "matrix.h"
 
 void rotate(matrix img){
@@ -53,9 +54,29 @@ int main(){
       .data = d
     };
 
+    double r[] = { 0.0, 7.0, 2.0, 8.0, 4.0,
+                   2.0, 4.0, 4.0, 1.0, 2.0,
+                   1.0, 2.0, 8.0, 6.0, 5.0,
+                   9.0, 0.0, 3.0, 1.0, 3.0,
+                   11.0, 3.0, 2.0, 0.0, 1.0 };
+    matrix rimg = {
+        .nrows = 5, .ncols = 5,
+        .data = r
+    };
+
+    printf("Matrix rotation test:\n");
+    printf("Original:\n");
     mx_print(img);
 
     rotate(img);
 
+    printf("Rotated:\n");
     mx_print(img);
+
+    printf("Expected rotation:\n");
+    mx_print(rimg);
+
+    assert(mx_eq(img, rimg));
+
+    printf("They seem equal.\n");
 }
