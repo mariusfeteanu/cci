@@ -2,7 +2,7 @@
 #include <assert.h>
 
 int is_palin_anagram(char *input){
-    int found[256] = {0};
+    int found[128] = {0};
 
     while(*input){
         if(*input != ' '){
@@ -12,7 +12,7 @@ int is_palin_anagram(char *input){
     }
 
     int found_even = 0;
-    for(int i=0; i<256; i++){
+    for(int i=0; i<128; i++){
         if(found[i] % 2 == 1){
             if(found_even) return 0;
             found_even = 1;

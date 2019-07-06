@@ -5,7 +5,7 @@ int is_unique(char *input){
     // char is 8 bits
     // 255 possible values (we stop on NULL)
     // but we allocate it anyway to keep things readable
-    char found[256] = {0};
+    char found[128] = {0};
 
     while(*input){
         if(found[(int)input[0]]){

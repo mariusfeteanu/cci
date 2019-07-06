@@ -12,13 +12,13 @@ int is_permutation(char *input, char *perm){
     // char is 8 bits
     // 255 possible values (we stop on NULL)
     // but we allocate it anyway to keep things readable
-    int found_input[256] = {0};
-    int found_perm[256] = {0};
+    int found_input[128] = {0};
+    int found_perm[128] = {0};
 
     count_char(input, found_input);
     count_char(perm, found_perm);
 
-    for(int i = 1; i < 256; i++){ //i=0 skipped intentionally, see above
+    for(int i = 1; i < 128; i++){ //i=0 skipped intentionally, see above
         if(found_input[i] != found_perm[i]){
             return 0;
         }
