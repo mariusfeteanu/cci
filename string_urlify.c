@@ -23,6 +23,7 @@ void urlify(char *input, int real_length){
     }
 }
 
+#ifdef TEST_string_urlify
 void test_urilify(char a[], char e[], int l){
     printf("Urlifying <<%s>> of length <<%d>> to ", a, l);
     urlify(a, l);
@@ -48,3 +49,4 @@ int main(){
     char e4[] = "abc";
     test_urilify(s4, e4, 3);
 }
+#endif

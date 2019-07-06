@@ -22,6 +22,7 @@ int is_palin_anagram(char *input){
     return 1;
 }
 
+#ifdef TEST_string_palin_anagram
 void test_is_palin_anagram(char *s){
     printf("Checking if <<%s>> is an anagram of a plaindrome.\n", s);
     assert(is_palin_anagram(s));
@@ -38,3 +39,4 @@ int main(){
     test_is_palin_anagram("");
     test_is_not_palin_anagram("aaab");
 }
+#endif

@@ -36,6 +36,7 @@ void compress(char *input, char *output){
     if(j >= i) strcpy(output, input);
 }
 
+#ifdef TEST_string_compression
 void test_compress(char *input, char *expected_output){
     printf("Checking compression of <<%s>> to <<%s>>.\n", input, expected_output);
 
@@ -53,3 +54,4 @@ int main(){
     test_compress("aaaaaaaaaaaabb", "a12b2");
     test_compress("abbbb", "a1b4");
 }
+#endif

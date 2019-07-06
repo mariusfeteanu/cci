@@ -27,6 +27,7 @@ int is_permutation(char *input, char *perm){
   return 1;
 }
 
+#ifdef TEST_string_permutation
 void test_is_permutation(){
     char a[] = "abc", b[] = "cab";
     printf("Checking a valid permutation (%s) -> (%s).\n", a, b);
@@ -68,3 +69,4 @@ int main(){
      test_is_permutation_empty();
      test_is_not_permutation_one_empty();
 }
+#endif

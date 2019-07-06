@@ -19,6 +19,7 @@ int is_unique(char *input){
   return 1;
 }
 
+#ifdef TEST_string_unique
 void test_is_unique(){
     printf("Checking an unique string.\n");
     char a[] = "abc";
@@ -43,3 +44,4 @@ int main(){
     test_is_not_unique();
     test_is_unique_empty();
 }
+#endif

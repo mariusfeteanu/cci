@@ -41,6 +41,7 @@ void rotate(matrix img){
     }
 }
 
+#ifdef TEST_matrix_rotate_square
 int main(){
     setbuf(stdout, NULL);
 
@@ -80,3 +81,4 @@ int main(){
 
     printf("They seem equal.\n");
 }
+#endif

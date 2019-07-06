@@ -33,6 +33,7 @@ int is_close(char *left, char *right){
     else{ return (*right && !*(right+1)) || !*right; }
 }
 
+#ifdef TEST_string_one_away
 void test_is_close(char *left, char *right){
     printf("Checkin' that <<%s>> is close to <<%s>>.\n", left, right);
     assert(is_close(left, right));
@@ -61,3 +62,4 @@ int main(){
     test_is_not_close("dsadsa", "3jdsa0");
     test_is_close("apple", "aple");
 }
+#endif
