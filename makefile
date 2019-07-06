@@ -10,12 +10,11 @@ REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
 
 test: $(REPORTS) 
 
-%.report: %
+%.report: %.indent %
 	@echo -e "\n\n######## $* ########"
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
 %: %.c
-	indent -kr $*.c -o $*.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -DTEST_$* $*.c -o $*
 
 # Use default make rules to build
@@ -25,6 +24,9 @@ clean:
 	for f in $(PROGRAMS); do \
 	rm -fr $$f $$f.report $$f.dSYM; \
 	done
+
+%.indent: %.c
+	indent -kr $*.c -o $*.c
 
 %.travis: %
 	@echo -e "\n\n######## $* ########"
