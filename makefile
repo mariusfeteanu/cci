@@ -5,21 +5,22 @@ CC=cc
 
 # All files that have a .c extension in the current dir
 # But without the extension
-PROGRAMS=$(patsubst %.c,%,$(wildcard *.c))
-REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
+PROGRAMS=$(patsubst %.c,bin/%,$(wildcard *.c))
+REPORTS=$(patsubst %.c,report/%,$(wildcard *.c))
 COMMON_OBJECTS=$(patsubst %.c,%.o,$(wildcard common/*.c))
 
 test: $(REPORTS)
-%.report: %
+report/%: bin/%
 	@echo -e "\n\n######## $* ########"
-	rm -f $@ && set -o pipefail && ./$* | tee $@
+	mkdir -p report && rm -f $@ && set -o pipefail && ./bin/$* | tee $@
 
-%: %.c common
+bin/%: %.c common
+	mkdir -p bin
 	$(CC) $(CFLAGS) \
 	-DTEST_$* \
 	$*.c \
 	$(COMMON_OBJECTS) \
-	-o $*
+	-o bin/$*
 
 common: $(COMMON_OBJECTS)
 
@@ -28,9 +29,11 @@ build: $(PROGRAMS)
 
 clean:
 	for f in $(PROGRAMS); do \
-	rm -fr $$f $$f.report $$f.dSYM $$f.c~; \
+	rm -fr $$f $$f.dSYM $$f.c~; \
 	done
 	rm -f $(COMMON_OBJECTS)
+	rm -rf ./report/
+	rm -rf ./bin/
 
 
 indent:
