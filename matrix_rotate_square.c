@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "matrix.h"
+#include "matrix.c"
 
 void rotate(matrix img){
     int n = img.nrows-1; // maximum index
