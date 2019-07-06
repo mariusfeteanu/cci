@@ -54,11 +54,11 @@ void ll_insert(ll_list *list, void *key, size_t key_size){
     list->head = node;
 }
 
-ll_node *ll_search(ll_list list, void *key, size_t key_size){
+ll_node *ll_search_value(ll_list list, void *key, size_t key_size){
     ll_node *node = list.head;
     char *search_for = (char *)key;
 
-    while(node->next){
+    while(node){
         char *current = (char *)node->key;
 
         int i;
@@ -78,17 +78,69 @@ void ll_print(ll_list list){
     ll_node *node = list.head;
 
     printf("Linked list: {");
-    while(node->next){
+    while(node){
         printf("[key@%p (%zu bytes)]", node->key, node->key_size);
-        if(node->next->next) printf(" -> ");
+        if(node->next) printf(" -> ");
         node = node->next;
     }
     printf("}\n");
 }
 
+void ll_remove_node(ll_list *list, ll_node *node){
+    if(node->prev){
+        node->prev->next = node->next;
+    }
+    else {
+        list->head = node->next;
+    }
+    if(node->next){
+        node->next->prev = node->prev;
+    }
+}
+
+int ll_eq(ll_list left, ll_list right){
+    return left.head == right.head;
+}
+
+int ll_eq_keys(ll_list left_list, ll_list right_list){
+    ll_node *left = left_list.head;
+    ll_node *right = right_list.head;
+
+    while(left && right){
+        if( (left->key_size != right->key_size) || \
+            (left->key != right->key) ){
+            return 0;
+        }
+        left = left->next;
+        right = right->next;
+    }
+
+    return !(left->next || right->next);
+}
+
+int ll_eq_values(ll_list left_list, ll_list right_list){
+    ll_node *left = left_list.head;
+    ll_node *right = right_list.head;
+
+    while(left && right){
+        if( (left->key_size != right->key_size)) return 0;
+        char *left_value = (char *)left->key;
+        char *right_value = (char *)right->key;
+        int i = 0;
+        for(i=0; i<left->key_size; i++){
+            if(left_value[i] != right_value[i]){
+                return 0;
+            }
+        }
+        left = left->next;
+        right = right->next;
+    }
+    return 1;
+}
+
 // int operations
-ll_node *ll_search_int(ll_list list, int key){
-    return ll_search(list, &key, sizeof(int));
+ll_node *ll_search_value_int(ll_list list, int key){
+    return ll_search_value(list, &key, sizeof(int));
 }
 
 void ll_insert_int(ll_list *list, int *key){
@@ -104,17 +156,17 @@ void ll_print_int(ll_list list){
     ll_node *node = list.head;
 
     printf("Linked list: {");
-    while(node->next){
+    while(node){
         printf("[%d]", *(int *)node->key);
-        if(node->next->next) printf(" -> ");
+        if(node->next) printf(" -> ");
         node = node->next;
     }
     printf("}\n");
 }
 
 // double operations
-ll_node *ll_search_double(ll_list list, double key){
-    return ll_search(list, &key, sizeof(double));
+ll_node *ll_search_value_double(ll_list list, double key){
+    return ll_search_value(list, &key, sizeof(double));
 }
 
 void ll_insert_double(ll_list *list, double *key){
@@ -130,15 +182,42 @@ void ll_print_double(ll_list list){
     ll_node *node = list.head;
 
     printf("Linked list: {");
-    while(node->next){
+    while(node){
         printf("[%.2f]", *(double *)node->key);
-        if(node->next->next) printf(" -> ");
+        if(node->next) printf(" -> ");
         node = node->next;
     }
     printf("}\n");
 }
 
 #ifdef TEST_lili
+// untyped operations (tested with ints)
+void test_lili_eq(){
+    int vals[] = {4, 7, 6, 5};
+    ll_list l = ll_from_array(vals, 4, sizeof(int));
+
+    assert(ll_eq(l, l));
+}
+
+void test_lili_remove_node(){
+    int vals[] = {4, 7, 6, 5};
+    ll_list l = ll_from_array(vals, 4, sizeof(int));
+
+    int expected_vals[] = {4, 7, 5};
+    ll_list e = ll_from_array(expected_vals, 3, sizeof(int));
+
+    printf("Checking removing nodes from list:\n");
+    ll_print_int(l);
+    printf("Expecting:\n");
+    ll_print_int(e);
+
+    ll_remove_node(&l, l.head->next->next);
+    printf("Result:\n");
+    ll_print_int(l);
+
+    assert(ll_eq_values(l, e));
+}
+
 // ***** int tests ******
 void test_lili_int_from_array(){
     int vals[] = {4, 7, 6, 5};
@@ -160,7 +239,7 @@ void test_lili_search_int(){
     printf("Searching for a value in a list of ints.\n");
     ll_print_int(l);
 
-    ll_node *found = ll_search_int(l, 6);
+    ll_node *found = ll_search_value_int(l, 6);
 
     assert(ll_node_get_int(*found) == 6);
 }
@@ -208,7 +287,7 @@ void test_lili_search_double(){
     printf("Searching for a value in a list of doubles.\n");
     ll_print_double(l);
 
-    ll_node *found = ll_search_double(l, 6.0);
+    ll_node *found = ll_search_value_double(l, 6.0);
 
     assert(ll_node_get_double(*found) == 6.0);
 }
@@ -245,5 +324,8 @@ int main(){
     test_lili_double_from_array();
     test_lili_search_double();
     test_lili_double_insert();
+
+    test_lili_eq();
+    test_lili_remove_node();
 }
 #endif
