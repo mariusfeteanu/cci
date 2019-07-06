@@ -54,11 +54,25 @@ void ll_insert(ll_list *list, void *key, size_t key_size){
     list->head = node;
 }
 
+ll_node *ll_search_key(ll_list list, void *key){
+    ll_node *node = list.head;
+
+    while(node){
+        if(node->key == key) return node;
+        node = node->next;
+    }
+
+    return NULL;
+}
+
 ll_node *ll_search_value(ll_list list, void *key, size_t key_size){
     ll_node *node = list.head;
     char *search_for = (char *)key;
 
     while(node){
+        // if we have the same pointer we are done here
+        if(node->key == key) return node;
+
         char *current = (char *)node->key;
 
         int i;
@@ -72,29 +86,6 @@ ll_node *ll_search_value(ll_list list, void *key, size_t key_size){
     }
 
     return NULL;
-}
-
-ll_node *ll_search_key(ll_list list, void *key){
-    ll_node *node = list.head;
-
-    while(node){
-        if(node->key == key) return node;
-        node = node->next;
-    }
-
-    return NULL;
-}
-
-void ll_print(ll_list list){
-    ll_node *node = list.head;
-
-    printf("Linked list: {");
-    while(node){
-        printf("[key@%p (%zu bytes)]", node->key, node->key_size);
-        if(node->next) printf(" -> ");
-        node = node->next;
-    }
-    printf("}\n");
 }
 
 void ll_remove_node(ll_list *list, ll_node *node){
@@ -117,6 +108,8 @@ int ll_eq_keys(ll_list left_list, ll_list right_list){
     ll_node *left = left_list.head;
     ll_node *right = right_list.head;
 
+    if(left == right) return 1; // should this be in the loop?
+
     while(left && right){
         if( (left->key_size != right->key_size) || \
             (left->key != right->key) ){
@@ -133,20 +126,36 @@ int ll_eq_values(ll_list left_list, ll_list right_list){
     ll_node *left = left_list.head;
     ll_node *right = right_list.head;
 
+    if(left == right) return 1; // should this be in the loop?
+
     while(left && right){
-        if( (left->key_size != right->key_size)) return 0;
-        char *left_value = (char *)left->key;
-        char *right_value = (char *)right->key;
-        int i = 0;
-        for(i=0; i<left->key_size; i++){
-            if(left_value[i] != right_value[i]){
-                return 0;
+        if(left->key != right->key){
+            if( (left->key_size != right->key_size)) return 0;
+            char *left_value = (char *)left->key;
+            char *right_value = (char *)right->key;
+            int i = 0;
+            for(i=0; i<left->key_size; i++){
+                if(left_value[i] != right_value[i]){
+                    return 0;
+                }
             }
         }
         left = left->next;
         right = right->next;
     }
     return 1;
+}
+
+void ll_print(ll_list list){
+    ll_node *node = list.head;
+
+    printf("Linked list: {");
+    while(node){
+        printf("[key@%p (%zu bytes)]", node->key, node->key_size);
+        if(node->next) printf(" -> ");
+        node = node->next;
+    }
+    printf("}\n");
 }
 
 // int operations
