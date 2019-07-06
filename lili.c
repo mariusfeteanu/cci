@@ -173,15 +173,16 @@ unsigned int ll_length(ll_list list)
     return i;
 }
 
-void *ll_get(ll_list list, int index){
+void *ll_get(ll_list list, int index)
+{
     ll_node *node = list.head;
-    while(node && index>0){
-        index--;
-        node=node->next;
+    while (node && index > 0) {
+	index--;
+	node = node->next;
     }
 
-    if(node){
-        return node->key;
+    if (node) {
+	return node->key;
     }
     return NULL;
 }
@@ -217,7 +218,10 @@ int ll_node_get_int(ll_node node)
     return *(int *) node.key;
 }
 
-int *ll_get_int(ll_list list, int index){ return ll_get(list, index); }
+int *ll_get_int(ll_list list, int index)
+{
+    return ll_get(list, index);
+}
 
 void ll_print_int(ll_list list)
 {
@@ -250,7 +254,10 @@ double ll_node_get_double(ll_node node)
     return *(double *) node.key;
 }
 
-double *ll_get_double(ll_list list, int index){ return ll_get(list, index); }
+double *ll_get_double(ll_list list, int index)
+{
+    return ll_get(list, index);
+}
 
 void ll_print_double(ll_list list)
 {
