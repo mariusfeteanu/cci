@@ -35,6 +35,7 @@ clean:
 
 indent:
 	VERSION_CONTROL=none indent -kr *.c
+	VERSION_CONTROL=none indent -kr common/*.c
 
 
 %.travis: %
