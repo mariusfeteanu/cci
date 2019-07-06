@@ -8,9 +8,8 @@ CC=cc
 PROGRAMS=$(patsubst %.c,%,$(wildcard *.c))
 REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
 
-test: $(REPORTS) 
-
-%.report: %.indent %
+test: $(REPORTS)
+%.report: %
 	@echo -e "\n\n######## $* ########"
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
@@ -22,14 +21,15 @@ build: $(PROGRAMS)
 
 clean:
 	for f in $(PROGRAMS); do \
-	rm -fr $$f $$f.report $$f.dSYM; \
+	rm -fr $$f $$f.report $$f.dSYM $$f.c~; \
 	done
 
-%.indent: %.c
-	indent -kr $*.c -o $*.c
+
+indent:
+	VERSION_CONTROL=none indent -kr *.c
+
 
 %.travis: %
 	@echo -e "\n\n######## $* ########"
 	./$*
-
 travis: $(patsubst %.c,%.travis,$(wildcard *.c))

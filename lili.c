@@ -354,7 +354,7 @@ void test_ll_int_insert()
     assert(ll_node_get_int(*l.head) == 7);
     assert(ll_node_get_int(*l.head->next) == 6);
     assert(ll_node_get_int(*l.head->next->next) == 5);
-    assert(!(* (l.head->next->next)).next);
+    assert(ll_length(l) == 3);
     ll_print_int(l);
 
     int n = 4.0;
@@ -405,7 +405,7 @@ void test_ll_double_insert()
     assert(ll_node_get_double(*l.head) == 7.0);
     assert(ll_node_get_double(*l.head->next) == 6.0);
     assert(ll_node_get_double(*l.head->next->next) == 5.0);
-    assert(!(* (l.head->next->next)).next);
+    assert(ll_length(l) == 3);
     ll_print_double(l);
 
     double n = 4.0;
