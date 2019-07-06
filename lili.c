@@ -74,6 +74,17 @@ ll_node *ll_search_value(ll_list list, void *key, size_t key_size){
     return NULL;
 }
 
+ll_node *ll_search_key(ll_list list, void *key){
+    ll_node *node = list.head;
+
+    while(node){
+        if(node->key == key) return node;
+        node = node->next;
+    }
+
+    return NULL;
+}
+
 void ll_print(ll_list list){
     ll_node *node = list.head;
 
@@ -192,14 +203,14 @@ void ll_print_double(ll_list list){
 
 #ifdef TEST_lili
 // untyped operations (tested with ints)
-void test_lili_eq(){
+void test_ll_eq(){
     int vals[] = {4, 7, 6, 5};
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
     assert(ll_eq(l, l));
 }
 
-void test_lili_remove_node(){
+void test_ll_remove_node(){
     int vals[] = {4, 7, 6, 5};
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
@@ -218,8 +229,18 @@ void test_lili_remove_node(){
     assert(ll_eq_values(l, e));
 }
 
+void test_ll_search_key(){
+    int vals[] = {4, 7, 6, 5};
+    ll_list l = ll_from_array(vals, 4, sizeof(int));
+
+    printf("Checking finding a key reference in a list.\n");
+    ll_node *node = ll_search_key(l, vals+1);
+
+    assert(ll_node_get_int(*node) == 7);
+}
+
 // ***** int tests ******
-void test_lili_int_from_array(){
+void test_ll_int_from_array(){
     int vals[] = {4, 7, 6, 5};
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
@@ -232,7 +253,7 @@ void test_lili_int_from_array(){
     assert(ll_node_get_int(*l.head->next->next->next) == 5);
 }
 
-void test_lili_search_int(){
+void test_ll_search_int(){
     int vals[] = {4, 7, 6, 5};
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
@@ -244,7 +265,7 @@ void test_lili_search_int(){
     assert(ll_node_get_int(*found) == 6);
 }
 
-void test_lili_int_insert(){
+void test_ll_int_insert(){
     int vals[] = {7, 6, 5};
     ll_list l = ll_from_array(vals, 3, sizeof(int));
 
@@ -267,7 +288,7 @@ void test_lili_int_insert(){
 }
 
 // ***** double tests *****
-void test_lili_double_from_array(){
+void test_ll_double_from_array(){
     double vals[] = {4.0, 7.0, 6.0, 5.0};
     ll_list l = ll_from_array(vals, 4.0, sizeof(double));
 
@@ -280,7 +301,7 @@ void test_lili_double_from_array(){
     assert(ll_node_get_double(*l.head->next->next->next) == 5.0);
 }
 
-void test_lili_search_double(){
+void test_ll_search_double(){
     double vals[] = {4.0, 7.0, 6.0, 5.0};
     ll_list l = ll_from_array(vals, 4, sizeof(double));
 
@@ -292,7 +313,7 @@ void test_lili_search_double(){
     assert(ll_node_get_double(*found) == 6.0);
 }
 
-void test_lili_double_insert(){
+void test_ll_double_insert(){
     double vals[] = {7.0, 6.0, 5.0};
     ll_list l = ll_from_array(vals, 3, sizeof(double));
 
@@ -317,15 +338,16 @@ void test_lili_double_insert(){
 int main(){
     setbuf(stdout, NULL);
 
-    test_lili_int_from_array();
-    test_lili_search_int();
-    test_lili_int_insert();
+    test_ll_int_from_array();
+    test_ll_search_int();
+    test_ll_int_insert();
 
-    test_lili_double_from_array();
-    test_lili_search_double();
-    test_lili_double_insert();
+    test_ll_double_from_array();
+    test_ll_search_double();
+    test_ll_double_insert();
 
-    test_lili_eq();
-    test_lili_remove_node();
+    test_ll_eq();
+    test_ll_remove_node();
+    test_ll_search_key();
 }
 #endif
