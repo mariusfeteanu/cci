@@ -41,7 +41,7 @@ indent:
 	VERSION_CONTROL=none indent -kr common/*.c
 
 
-%.travis: %
+%.travis: bin/%
 	@echo -e "\n\n######## $* ########"
-	./$*
+	./bin/$*
 travis: $(patsubst %.c,%.travis,$(wildcard *.c))
