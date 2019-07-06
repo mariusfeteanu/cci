@@ -7,7 +7,7 @@ CC=cc
 # But without the extension
 PROGRAMS=$(patsubst %.c,%,$(wildcard *.c))
 REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
-COMMON_OBJECTS=common/string.o common/lili.o common/matrix.o
+COMMON_OBJECTS=$(patsubst %.c,%.o,$(wildcard common/*.c))
 
 test: $(REPORTS)
 %.report: %
@@ -15,7 +15,7 @@ test: $(REPORTS)
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
 %: %.c common
-	$(CC) $(CPPFLAGS) $(CFLAGS) \
+	$(CC) $(CFLAGS) \
 	-DTEST_$* \
 	$*.c \
 	$(COMMON_OBJECTS) \
@@ -30,7 +30,7 @@ clean:
 	for f in $(PROGRAMS); do \
 	rm -fr $$f $$f.report $$f.dSYM $$f.c~; \
 	done
-	rm $(COMMON_OBJECTS)
+	rm -f $(COMMON_OBJECTS)
 
 
 indent:
