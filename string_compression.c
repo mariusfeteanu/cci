@@ -5,6 +5,22 @@
 
 #define MAX_SIZE 1024
 
+void emit_compressed(char *output,
+                     char prev,
+                     int *j,
+                     int *occurences){
+    int digit_count = 1 + *occurences/10;
+
+    assert((*j + digit_count + 1) < MAX_SIZE);
+
+    output[*j] = prev;
+    *j += 1;
+    sprintf(&output[*j], "%d", *occurences);
+    *j += digit_count;
+
+    *occurences = 1;
+}
+
 void compress(char *input, char *output){
     char prev = *input;
     int occurences = 0;
@@ -13,25 +29,16 @@ void compress(char *input, char *output){
     int i = 0, j = 0;
 
     while(input[i]){
-        assert(j+2<=MAX_SIZE); // because we need room to append the last count
-
         if(input[i] == prev){
-            occurences++;
-            // assert(occurences<10); // we don't handle more than five occurences yet
+            occurences++; // the same char again
         } else {
-            output[j] = prev;
-            sprintf(output+j+1, "%d", occurences);
-            j += (2 + occurences/10);
-            occurences = 1;
+            emit_compressed(output, prev, &j, &occurences);
         }
-
         prev = input[i];
         i++;
     }
 
-    output[j] = prev;
-    sprintf(output+j+1, "%d", occurences);
-    j += 2;
+    emit_compressed(output, prev, &j, &occurences);
 
     if(j >= i) strcpy(output, input);
 }
