@@ -1,6 +1,6 @@
 [![Build Status](https://api.travis-ci.org/mariusfeteanu/cci.svg?branch=master)](https://travis-ci.org/mariusfeteanu/cci)
 
-# Cracking the Coding Interview
+# Cracking the Coding Interview (in C)
 
 Solutions for [Cracking the Coding Interview](http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850) in the C programming language.
 
