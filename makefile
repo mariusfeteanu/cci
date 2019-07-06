@@ -26,6 +26,7 @@ clean:
 	done
 
 %.travis: %
+	@echo -e "\n\n######## $* ########"
 	./$*
 
 travis: $(patsubst %.c,%.travis,$(wildcard *.c))
