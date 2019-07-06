@@ -3,35 +3,7 @@
 #include <stdlib.h>
 #include "lili.h"
 
-ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
-{
-    assert(count > 0);
-    ll_node *node;
-    ll_node *prev = NULL;
-
-    ll_node *list_buffer;
-    list_buffer = malloc(count * sizeof(ll_node));
-
-    for (int i = 0; i < count; i++) {
-	node = list_buffer + i;
-	node->prev = prev;
-	node->next = NULL;
-	node->key = (void *) ((char *) keys + i * key_size);
-	node->key_size = key_size;
-
-	if (prev)
-	    prev->next = node;
-	prev = node;
-    }
-
-    ll_list list = {
-	.head = list_buffer,
-	.tail = prev
-    };
-
-    return list;
-}
-
+// manipulation
 void ll_insert(ll_list * list, void *key, size_t key_size)
 {
     ll_node *node = malloc(sizeof(ll_node));
@@ -45,6 +17,19 @@ void ll_insert(ll_list * list, void *key, size_t key_size)
     list->head = node;
 }
 
+void ll_remove_node(ll_list * list, ll_node * node)
+{
+    if (node->prev) {
+	node->prev->next = node->next;
+    } else {
+	list->head = node->next;
+    }
+    if (node->next) {
+	node->next->prev = node->prev;
+    }
+}
+
+// search
 ll_node *ll_search_key(ll_list list, void *key)
 {
     ll_node *node = list.head;
@@ -85,18 +70,34 @@ ll_node *ll_search_value(ll_list list, void *key, size_t key_size)
     return NULL;
 }
 
-void ll_remove_node(ll_list * list, ll_node * node)
+// inspect
+unsigned int ll_length(ll_list list)
 {
-    if (node->prev) {
-	node->prev->next = node->next;
-    } else {
-	list->head = node->next;
+    int i = 0;
+    ll_node *node = list.head;
+
+    while (node) {
+	i++;
+	node = node->next;
     }
-    if (node->next) {
-	node->next->prev = node->prev;
-    }
+    return i;
 }
 
+void *ll_get(ll_list list, int index)
+{
+    ll_node *node = list.head;
+    while (node && index > 0) {
+	index--;
+	node = node->next;
+    }
+
+    if (node) {
+	return node->key;
+    }
+    return NULL;
+}
+
+// Equality tests
 int ll_eq(ll_list left, ll_list right)
 {
     return left.head == right.head;
@@ -149,32 +150,7 @@ int ll_eq_values(ll_list left_list, ll_list right_list)
     return !(left || right);
 }
 
-unsigned int ll_length(ll_list list)
-{
-    int i = 0;
-    ll_node *node = list.head;
-
-    while (node) {
-	i++;
-	node = node->next;
-    }
-    return i;
-}
-
-void *ll_get(ll_list list, int index)
-{
-    ll_node *node = list.head;
-    while (node && index > 0) {
-	index--;
-	node = node->next;
-    }
-
-    if (node) {
-	return node->key;
-    }
-    return NULL;
-}
-
+// Utility functions
 void ll_print(ll_list list)
 {
     ll_node *node = list.head;
@@ -187,4 +163,33 @@ void ll_print(ll_list list)
 	node = node->next;
     }
     printf("}\n");
+}
+
+ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
+{
+    assert(count > 0);
+    ll_node *node;
+    ll_node *prev = NULL;
+
+    ll_node *list_buffer;
+    list_buffer = malloc(count * sizeof(ll_node));
+
+    for (int i = 0; i < count; i++) {
+	node = list_buffer + i;
+	node->prev = prev;
+	node->next = NULL;
+	node->key = (void *) ((char *) keys + i * key_size);
+	node->key_size = key_size;
+
+	if (prev)
+	    prev->next = node;
+	prev = node;
+    }
+
+    ll_list list = {
+	.head = list_buffer,
+	.tail = prev
+    };
+
+    return list;
 }
