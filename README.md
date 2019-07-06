@@ -17,7 +17,7 @@ Solutions for [Cracking the Coding Interview](http://www.amazon.com/Cracking-Cod
 
 All of these were written by my in order improve my coding and interview skills. No guarantee is made these are correct in any way, see also the [license](LICENSE).
 
-All code is compiled using C11 and no warnings. Tests are included in each file and executed automatically.
+All code is compiled using C11 and all warnings are considered errors. Tests are included in each file and executed automatically.
 
 This is tested with gcc and clang on linux and osx.
 
