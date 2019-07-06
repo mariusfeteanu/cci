@@ -74,6 +74,18 @@ ll_node *ll_search(ll_list list, void *key, size_t key_size){
     return NULL;
 }
 
+void ll_print(ll_list list){
+    ll_node *node = list.head;
+
+    printf("Linked list: {");
+    while(node->next){
+        printf("[key@%p (%zu bytes)]", node->key, node->key_size);
+        if(node->next->next) printf(" -> ");
+        node = node->next;
+    }
+    printf("}\n");
+}
+
 // int operations
 ll_node *ll_search_int(ll_list list, int key){
     return ll_search(list, &key, sizeof(int));
@@ -86,6 +98,18 @@ void ll_insert_int(ll_list *list, int *key){
 int ll_node_get_int(ll_node node){
     assert(node.key_size == sizeof(int));
     return *(int *)node.key;
+}
+
+void ll_print_int(ll_list list){
+    ll_node *node = list.head;
+
+    printf("Linked list: {");
+    while(node->next){
+        printf("[%d]", *(int *)node->key);
+        if(node->next->next) printf(" -> ");
+        node = node->next;
+    }
+    printf("}\n");
 }
 
 // double operations
@@ -102,6 +126,18 @@ int ll_node_get_double(ll_node node){
     return *(double *)node.key;
 }
 
+void ll_print_double(ll_list list){
+    ll_node *node = list.head;
+
+    printf("Linked list: {");
+    while(node->next){
+        printf("[%.2f]", *(double *)node->key);
+        if(node->next->next) printf(" -> ");
+        node = node->next;
+    }
+    printf("}\n");
+}
+
 #ifdef TEST_lili
 // ***** int tests ******
 void test_lili_int_from_array(){
@@ -109,6 +145,7 @@ void test_lili_int_from_array(){
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Checking linked list creation from array of ints.\n");
+    ll_print_int(l);
 
     assert(ll_node_get_int(*l.head) == 4);
     assert(ll_node_get_int(*l.head->next) == 7);
@@ -121,6 +158,7 @@ void test_lili_search_int(){
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Searching for a value in a list of ints.\n");
+    ll_print_int(l);
 
     ll_node *found = ll_search_int(l, 6);
 
@@ -137,9 +175,11 @@ void test_lili_int_insert(){
     assert(ll_node_get_int(*l.head->next) == 6);
     assert(ll_node_get_int(*l.head->next->next) == 5);
     assert(!(*(l.head->next->next)).next);
+    ll_print_int(l);
 
     int n = 4.0;
     ll_insert_int(&l, &n);
+    ll_print_int(l);
 
     assert(ll_node_get_int(*l.head) == 4);
     assert(ll_node_get_int(*l.head->next) == 7);
@@ -153,6 +193,7 @@ void test_lili_double_from_array(){
     ll_list l = ll_from_array(vals, 4.0, sizeof(double));
 
     printf("Checking linked list creation from array of doubles.\n");
+    ll_print_double(l);
 
     assert(ll_node_get_double(*l.head) == 4.0);
     assert(ll_node_get_double(*l.head->next) == 7.0);
@@ -165,6 +206,7 @@ void test_lili_search_double(){
     ll_list l = ll_from_array(vals, 4, sizeof(double));
 
     printf("Searching for a value in a list of doubles.\n");
+    ll_print_double(l);
 
     ll_node *found = ll_search_double(l, 6.0);
 
@@ -181,9 +223,11 @@ void test_lili_double_insert(){
     assert(ll_node_get_double(*l.head->next) == 6.0);
     assert(ll_node_get_double(*l.head->next->next) == 5.0);
     assert(!(*(l.head->next->next)).next);
+    ll_print_double(l);
 
     double n = 4.0;
     ll_insert_double(&l, &n);
+    ll_print_double(l);
 
     assert(ll_node_get_double(*l.head) == 4.0);
     assert(ll_node_get_double(*l.head->next) == 7.0);
