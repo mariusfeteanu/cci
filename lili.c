@@ -119,7 +119,7 @@ int ll_eq_keys(ll_list left_list, ll_list right_list){
         right = right->next;
     }
 
-    return !(left->next || right->next);
+    return !(left || right);
 }
 
 int ll_eq_values(ll_list left_list, ll_list right_list){
@@ -143,7 +143,18 @@ int ll_eq_values(ll_list left_list, ll_list right_list){
         left = left->next;
         right = right->next;
     }
-    return 1;
+    return !(left || right);
+}
+
+unsigned int ll_length(ll_list list){
+    int i = 0;
+    ll_node *node = list.head;
+
+    while(node){
+        i++;
+        node = node->next;
+    }
+    return i;
 }
 
 void ll_print(ll_list list){
