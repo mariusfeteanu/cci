@@ -17,18 +17,18 @@ Solutions for [Cracking the Coding Interview](http://www.amazon.com/Cracking-Cod
 
 All of these were written by my in order improve my coding and interview skills. No guarantee is made these are correct in any way, see also the [license](LICENSE).
 
-All code is compiled using C11 and no warnings. Tests are included in each fileand executed automatically.
+All code is compiled using C11 and no warnings. Tests are included in each file and executed automatically.
 
 This is tested with gcc and clang on linux and osx.
 
-Library use is kept to a minimum. Even standard library functions are only usedwhen not part of the specified problem, and if they would not modify the time or space complexity of the algo.
+Library use is kept to a minimum. Even standard library functions are only used when not part of the specified problem, and if they would not modify the time or space complexity of the algo.
 
 The C style was kept as idiomatic as I can. Performance and readability are both equal concerns and I have tried to strike a balance between the two.
 
 ## Repo structure
 
-Everything goes in the root. No problem numbers are included as these might change. No problem text was included, consult the book if you need it.
+Everything goes in the root. No problem numbers are included as these might change in different version of the book. No problem text was included, consult the book if you need it.
 
-Each file is prefix with the concept or data structure they work on.
+Each file is prefixed with the concept or data structure it applies to.
 
-Some (like matrix) are just helper code. These are included when needed using the pre-processor, just to keep the makefile simple.
+Some (like matrix.c) are just helper code. These are included when needed using the pre-processor, just to keep the makefile simple.
