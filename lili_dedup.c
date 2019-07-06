@@ -9,6 +9,7 @@ void ll_dedup_int_values_buffered(ll_list *list){
     ll_node *node = list->head;
     while(node){
         for(int jj=0; jj<ii; jj++){
+            // TODO: revisit this when I have a hash-map
             if(values[jj] == ll_node_get_int(*node)){
                 ll_remove_node(list, node);
                 break;

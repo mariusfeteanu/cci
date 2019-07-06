@@ -170,12 +170,12 @@ void ll_print(ll_list list){
 }
 
 // int operations
-ll_node *ll_search_value_int(ll_list list, int key){
-    return ll_search_value(list, &key, sizeof(int));
+ll_node *ll_search_value_int(ll_list list, int value){
+    return ll_search_value(list, &value, sizeof(int));
 }
 
-void ll_insert_int(ll_list *list, int *key){
-    ll_insert(list, (void *)key, sizeof(int));
+void ll_insert_int(ll_list *list, int *value){
+    ll_insert(list, (void *)value, sizeof(int));
 }
 
 int ll_node_get_int(ll_node node){
@@ -196,12 +196,12 @@ void ll_print_int(ll_list list){
 }
 
 // double operations
-ll_node *ll_search_value_double(ll_list list, double key){
-    return ll_search_value(list, &key, sizeof(double));
+ll_node *ll_search_value_double(ll_list list, double value){
+    return ll_search_value(list, &value, sizeof(double));
 }
 
-void ll_insert_double(ll_list *list, double *key){
-    ll_insert(list, (void *)key, sizeof(double));
+void ll_insert_double(ll_list *list, double *value){
+    ll_insert(list, (void *)value, sizeof(double));
 }
 
 int ll_node_get_double(ll_node node){
@@ -220,6 +220,32 @@ void ll_print_double(ll_list list){
     }
     printf("}\n");
 }
+
+// string operations
+//ll_node *ll_search_value_string(ll_list list, char *key){
+//    return ll_search_value(list, &key, sizeof(int));
+//}
+//
+//void ll_insert_int(ll_list *list, int *key){
+//    ll_insert(list, (void *)key, sizeof(int));
+//}
+//
+//int ll_node_get_int(ll_node node){
+//    assert(node.key_size == sizeof(int));
+//    return *(int *)node.key;
+//}
+//
+//void ll_print_int(ll_list list){
+//    ll_node *node = list.head;
+//
+//    printf("Linked list: {");
+//    while(node){
+//        printf("[%d]", *(int *)node->key);
+//        if(node->next) printf(" -> ");
+//        node = node->next;
+//    }
+//    printf("}\n");
+//}
 
 #ifdef TEST_lili
 // untyped operations (tested with ints)
