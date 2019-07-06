@@ -9,9 +9,6 @@ void count_char(char *array, int *found){
 }
 
 int is_permutation(char *input, char *perm){
-    // char is 8 bits
-    // 255 possible values (we stop on NULL)
-    // but we allocate it anyway to keep things readable
     int found_input[128] = {0};
     int found_perm[128] = {0};
 
