@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "matrix.c"
+#include "common/matrix.h"
 
 void rotate(matrix img)
 {

@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <string.h>
-#include "matrix.c"
+#include "common/matrix.h"
 
 void zero_rowcol(matrix m)
 {

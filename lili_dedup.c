@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "lili.c"
+#include "common/lili.h"
 
 void ll_dedup_int_values_buffered(ll_list * list)
 {

@@ -1,6 +1,9 @@
 *
 !*.c
+!common/
+!common/*.c
 !*.h
+!common/*h
 !makefile
 !.gitignore
 !.travis.yml

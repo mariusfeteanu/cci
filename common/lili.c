@@ -1,19 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct ll_node_s ll_node;
-struct ll_node_s {
-    ll_node *prev;
-    ll_node *next;
-    void *key;
-    size_t key_size;
-};
-
-typedef struct ll_list_s {
-    ll_node *head;
-    ll_node *tail;
-} ll_list;
+#include "lili.h"
 
 ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
 {

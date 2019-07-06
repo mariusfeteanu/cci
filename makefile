@@ -7,14 +7,21 @@ CC=cc
 # But without the extension
 PROGRAMS=$(patsubst %.c,%,$(wildcard *.c))
 REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
+COMMON_OBJECTS=common/string.o common/lili.o common/matrix.o
 
 test: $(REPORTS)
 %.report: %
 	@echo -e "\n\n######## $* ########"
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
-%: %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -DTEST_$* $*.c -o $*
+%: %.c common
+	$(CC) $(CPPFLAGS) $(CFLAGS) \
+	-DTEST_$* \
+	$*.c \
+	$(COMMON_OBJECTS) \
+	-o $*
+
+common: $(COMMON_OBJECTS)
 
 # Use default make rules to build
 build: $(PROGRAMS)
@@ -23,6 +30,7 @@ clean:
 	for f in $(PROGRAMS); do \
 	rm -fr $$f $$f.report $$f.dSYM $$f.c~; \
 	done
+	rm $(COMMON_OBJECTS)
 
 
 indent:

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "string.c"
+#include "common/string.h"
 
 int is_rotation(char *str, char *rot)
 {
