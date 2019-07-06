@@ -1,20 +1,21 @@
 #include <assert.h>
 #include <stdio.h>
 
-int is_substr(char *substr, char *str){
+int is_substr(char *substr, char *str)
+{
     int match_start = 0;
-    int i = 0; // substring index
-    int j = 0; // string index
+    int i = 0;			// substring index
+    int j = 0;			// string index
 
-    while(substr[i] && str[j]){
-        if(substr[i] == str[j]){
-            i++;
-            j++;
-        } else {
-            match_start++;
-            j = match_start;
-            i = 0;
-        }
+    while (substr[i] && str[j]) {
+	if (substr[i] == str[j]) {
+	    i++;
+	    j++;
+	} else {
+	    match_start++;
+	    j = match_start;
+	    i = 0;
+	}
     }
 
     // we have a match if and only if
@@ -23,17 +24,21 @@ int is_substr(char *substr, char *str){
 }
 
 #ifdef TEST_string
-void test_is_substr(char *substr, char *str){
+void test_is_substr(char *substr, char *str)
+{
     printf("Check that <<%s>> is a substring of <<%s>>.\n", substr, str);
     assert(is_substr(substr, str));
 }
 
-void test_is_not_substr(char *substr, char *str){
-    printf("Check that <<%s>> is not a substring of <<%s>>.\n", substr, str);
+void test_is_not_substr(char *substr, char *str)
+{
+    printf("Check that <<%s>> is not a substring of <<%s>>.\n", substr,
+	   str);
     assert(!is_substr(substr, str));
 }
 
-int main(){
+int main()
+{
     setbuf(stdout, NULL);
 
     test_is_substr("ho", "horse");

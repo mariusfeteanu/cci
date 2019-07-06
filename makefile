@@ -15,6 +15,7 @@ test: $(REPORTS)
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
 %: %.c
+	indent -kr $*.c -o $*.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -DTEST_$* $*.c -o $*
 
 # Use default make rules to build
