@@ -173,6 +173,19 @@ unsigned int ll_length(ll_list list)
     return i;
 }
 
+void *ll_get(ll_list list, int index){
+    ll_node *node = list.head;
+    while(node && index>0){
+        index--;
+        node=node->next;
+    }
+
+    if(node){
+        return node->key;
+    }
+    return NULL;
+}
+
 void ll_print(ll_list list)
 {
     ll_node *node = list.head;
@@ -204,6 +217,8 @@ int ll_node_get_int(ll_node node)
     return *(int *) node.key;
 }
 
+int *ll_get_int(ll_list list, int index){ return ll_get(list, index); }
+
 void ll_print_int(ll_list list)
 {
     ll_node *node = list.head;
@@ -229,11 +244,13 @@ void ll_insert_double(ll_list * list, double *value)
     ll_insert(list, (void *) value, sizeof(double));
 }
 
-int ll_node_get_double(ll_node node)
+double ll_node_get_double(ll_node node)
 {
     assert(node.key_size == sizeof(double));
     return *(double *) node.key;
 }
+
+double *ll_get_double(ll_list list, int index){ return ll_get(list, index); }
 
 void ll_print_double(ll_list list)
 {
@@ -248,32 +265,6 @@ void ll_print_double(ll_list list)
     }
     printf("}\n");
 }
-
-// string operations
-//ll_node *ll_search_value_string(ll_list list, char *key){
-//    return ll_search_value(list, &key, sizeof(int));
-//}
-//
-//void ll_insert_int(ll_list *list, int *key){
-//    ll_insert(list, (void *)key, sizeof(int));
-//}
-//
-//int ll_node_get_int(ll_node node){
-//    assert(node.key_size == sizeof(int));
-//    return *(int *)node.key;
-//}
-//
-//void ll_print_int(ll_list list){
-//    ll_node *node = list.head;
-//
-//    printf("Linked list: {");
-//    while(node){
-//        printf("[%d]", *(int *)node->key);
-//        if(node->next) printf(" -> ");
-//        node = node->next;
-//    }
-//    printf("}\n");
-//}
 
 #ifdef TEST_lili
 // untyped operations (tested with ints)
@@ -325,10 +316,10 @@ void test_ll_int_from_array()
     printf("Checking linked list creation from array of ints.\n");
     ll_print_int(l);
 
-    assert(ll_node_get_int(*l.head) == 4);
-    assert(ll_node_get_int(*l.head->next) == 7);
-    assert(ll_node_get_int(*l.head->next->next) == 6);
-    assert(ll_node_get_int(*l.head->next->next->next) == 5);
+    assert(*ll_get_int(l, 0) == 4);
+    assert(*ll_get_int(l, 1) == 7);
+    assert(*ll_get_int(l, 2) == 6);
+    assert(*ll_get_int(l, 3) == 5);
 }
 
 void test_ll_search_int()
@@ -351,9 +342,9 @@ void test_ll_int_insert()
 
     printf("Checking insertion into linked list of ints.\n");
 
-    assert(ll_node_get_int(*l.head) == 7);
-    assert(ll_node_get_int(*l.head->next) == 6);
-    assert(ll_node_get_int(*l.head->next->next) == 5);
+    assert(*ll_get_int(l, 0) == 7);
+    assert(*ll_get_int(l, 1) == 6);
+    assert(*ll_get_int(l, 2) == 5);
     assert(ll_length(l) == 3);
     ll_print_int(l);
 
@@ -361,10 +352,10 @@ void test_ll_int_insert()
     ll_insert_int(&l, &n);
     ll_print_int(l);
 
-    assert(ll_node_get_int(*l.head) == 4);
-    assert(ll_node_get_int(*l.head->next) == 7);
-    assert(ll_node_get_int(*l.head->next->next) == 6);
-    assert(ll_node_get_int(*l.head->next->next->next) == 5);
+    assert(*ll_get_int(l, 0) == 4);
+    assert(*ll_get_int(l, 1) == 7);
+    assert(*ll_get_int(l, 2) == 6);
+    assert(*ll_get_int(l, 3) == 5);
 }
 
 // ***** double tests *****
@@ -376,10 +367,10 @@ void test_ll_double_from_array()
     printf("Checking linked list creation from array of doubles.\n");
     ll_print_double(l);
 
-    assert(ll_node_get_double(*l.head) == 4.0);
-    assert(ll_node_get_double(*l.head->next) == 7.0);
-    assert(ll_node_get_double(*l.head->next->next) == 6.0);
-    assert(ll_node_get_double(*l.head->next->next->next) == 5.0);
+    assert(*ll_get_double(l, 0) == 4.0);
+    assert(*ll_get_double(l, 1) == 7.0);
+    assert(*ll_get_double(l, 2) == 6.0);
+    assert(*ll_get_double(l, 3) == 5.0);
 }
 
 void test_ll_search_double()
@@ -402,9 +393,9 @@ void test_ll_double_insert()
 
     printf("Checking insertion into linked list of doubles.\n");
 
-    assert(ll_node_get_double(*l.head) == 7.0);
-    assert(ll_node_get_double(*l.head->next) == 6.0);
-    assert(ll_node_get_double(*l.head->next->next) == 5.0);
+    assert(*ll_get_double(l, 0) == 7.0);
+    assert(*ll_get_double(l, 1) == 6.0);
+    assert(*ll_get_double(l, 2) == 5.0);
     assert(ll_length(l) == 3);
     ll_print_double(l);
 
@@ -412,10 +403,10 @@ void test_ll_double_insert()
     ll_insert_double(&l, &n);
     ll_print_double(l);
 
-    assert(ll_node_get_double(*l.head) == 4.0);
-    assert(ll_node_get_double(*l.head->next) == 7.0);
-    assert(ll_node_get_double(*l.head->next->next) == 6.0);
-    assert(ll_node_get_double(*l.head->next->next->next) == 5.0);
+    assert(*ll_get_double(l, 0) == 4.0);
+    assert(*ll_get_double(l, 1) == 7.0);
+    assert(*ll_get_double(l, 2) == 6.0);
+    assert(*ll_get_double(l, 3) == 5.0);
 }
 
 int main()
