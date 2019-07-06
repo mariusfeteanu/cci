@@ -11,6 +11,7 @@ REPORTS=$(patsubst %.c,%.report,$(wildcard *.c))
 test: $(REPORTS) 
 
 %.report: %
+	@echo -e "\n\n######## $* ########"
 	rm -f $@ && set -o pipefail && ./$* | tee $@
 
 %: %.c
