@@ -17,7 +17,10 @@ void zero_rowcol(matrix m){
             }
         }
     }
-    // TODO: what if the first row is all zeros? how to skip the rest of the mattrix?
+
+    // TODO: what if the first row is all zeros?
+    // how to skip the rest of the mattrix?
+    // do I care?
 
     for(int i=0; i<m.nrows; i++){
         for(int j=0; j<m.ncols; j++){
