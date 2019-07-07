@@ -71,10 +71,10 @@ int ll_node_eq(ll_node * left, ll_node * right)
     return ll_node_eq_value(left, right_value, right->key_size);
 }
 
-int ll_eq(ll_list left_list, ll_list right_list)
+int ll_eq(ll_list * left_list, ll_list * right_list)
 {
-    ll_node *left = left_list.head;
-    ll_node *right = right_list.head;
+    ll_node *left = left_list->head;
+    ll_node *right = right_list->head;
 
     while (left && right) {
         if (!ll_node_eq(left, right))
@@ -86,9 +86,9 @@ int ll_eq(ll_list left_list, ll_list right_list)
 }
 
 // search
-ll_node *ll_search(ll_list list, void *value, int size)
+ll_node *ll_search(ll_list * list, void *value, int size)
 {
-    ll_node *node = list.head;
+    ll_node *node = list->head;
 
     while (node) {
         if (ll_node_eq_value(node, (char *) value, size))
@@ -100,10 +100,10 @@ ll_node *ll_search(ll_list list, void *value, int size)
 
 
 // inspect
-unsigned int ll_length(ll_list list)
+unsigned int ll_length(ll_list * list)
 {
     int i = 0;
-    ll_node *node = list.head;
+    ll_node *node = list->head;
 
     while (node) {
         i++;
@@ -112,9 +112,9 @@ unsigned int ll_length(ll_list list)
     return i;
 }
 
-void *ll_get(ll_list list, int index)
+void *ll_get(ll_list * list, int index)
 {
-    ll_node *node = list.head;
+    ll_node *node = list->head;
     while (node && index > 0) {
         index--;
         node = node->next;
@@ -127,9 +127,9 @@ void *ll_get(ll_list list, int index)
 }
 
 // Utility functions
-void ll_print(ll_list list)
+void ll_print(ll_list * list)
 {
-    ll_node *node = list.head;
+    ll_node *node = list->head;
 
     printf("Linked list: {");
     while (node) {
@@ -141,7 +141,7 @@ void ll_print(ll_list list)
     printf("}\n");
 }
 
-ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
+ll_list *ll_from_array(void *keys, unsigned int count, size_t key_size)
 {
     assert(count > 0);
     ll_node *node;
@@ -162,10 +162,9 @@ ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
         prev = node;
     }
 
-    ll_list list = {
-        .head = first,
-        .tail = prev
-    };
+    ll_list *list = malloc(sizeof(ll_list));
+    list->head = first;
+    list->tail = prev;
 
     return list;
 }

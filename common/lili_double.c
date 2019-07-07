@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "lili.h"
 
-ll_node *ll_search_double(ll_list list, double value)
+ll_node *ll_search_double(ll_list * list, double value)
 {
     return ll_search(list, &value, sizeof(double));
 }
@@ -13,20 +13,20 @@ void ll_insert_double(ll_list * list, double *value)
     ll_insert(list, (void *) value, sizeof(double));
 }
 
-double ll_node_get_double(ll_node node)
+double ll_node_get_double(ll_node * node)
 {
-    assert(node.key_size == sizeof(double));
-    return *(double *) node.key;
+    assert(node->key_size == sizeof(double));
+    return *(double *) node->key;
 }
 
-double *ll_get_double(ll_list list, int index)
+double *ll_get_double(ll_list * list, int index)
 {
     return ll_get(list, index);
 }
 
-void ll_print_double(ll_list list)
+void ll_print_double(ll_list * list)
 {
-    ll_node *node = list.head;
+    ll_node *node = list->head;
 
     printf("Linked list: {");
     while (node) {

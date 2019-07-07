@@ -36,9 +36,11 @@ clean:
 	rm -rf ./bin/
 
 
-indent:
-	VERSION_CONTROL=none indent -kr -ci2 -nut *.c
-	VERSION_CONTROL=none indent -kr -ci2 -nut common/*.c
+indent: $(wildcard *.c) \
+        $(wildcard *.h) \
+        $(wildcard common/*.c) \
+        $(wildcard common/*.h)
+	VERSION_CONTROL=none indent -kr -ci2 -nut $?
 
 
 %.travis: bin/%

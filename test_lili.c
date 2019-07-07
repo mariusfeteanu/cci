@@ -8,7 +8,7 @@
 void test_ll_eq()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 4, sizeof(int));
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     assert(ll_eq(l, l));
 }
@@ -16,17 +16,17 @@ void test_ll_eq()
 void test_ll_remove()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 4, sizeof(int));
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     int expected_vals[] = { 4, 7, 5 };
-    ll_list e = ll_from_array(expected_vals, 3, sizeof(int));
+    ll_list *e = ll_from_array(expected_vals, 3, sizeof(int));
 
     printf("Checking removing nodes from list:\n");
     ll_print_int(l);
     printf("Expecting:\n");
     ll_print_int(e);
 
-    ll_remove(&l, l.head->next->next);
+    ll_remove(l, l->head->next->next);
     printf("Result:\n");
     ll_print_int(l);
 
@@ -36,19 +36,19 @@ void test_ll_remove()
 void test_ll_search()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 4, sizeof(int));
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Checking finding a key reference in a list.\n");
     ll_node *node = ll_search(l, vals + 1, sizeof(int));
 
-    assert(ll_node_get_int(*node) == 7);
+    assert(ll_node_get_int(node) == 7);
 }
 
 // ***** int tests ******
 void test_ll_int_from_array()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 4, sizeof(int));
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Checking linked list creation from array of ints.\n");
     ll_print_int(l);
@@ -62,20 +62,20 @@ void test_ll_int_from_array()
 void test_ll_search_int()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 4, sizeof(int));
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Searching for a value in a list of ints.\n");
     ll_print_int(l);
 
     ll_node *found = ll_search_int(l, 6);
 
-    assert(ll_node_get_int(*found) == 6);
+    assert(ll_node_get_int(found) == 6);
 }
 
 void test_ll_int_insert()
 {
     int vals[] = { 7, 6, 5 };
-    ll_list l = ll_from_array(vals, 3, sizeof(int));
+    ll_list *l = ll_from_array(vals, 3, sizeof(int));
 
     printf("Checking insertion into linked list of ints.\n");
 
@@ -86,7 +86,7 @@ void test_ll_int_insert()
     ll_print_int(l);
 
     int n = 4.0;
-    ll_insert_int(&l, &n);
+    ll_insert_int(l, &n);
     ll_print_int(l);
 
     assert(*ll_get_int(l, 0) == 4);
@@ -99,7 +99,7 @@ void test_ll_int_insert()
 void test_ll_double_from_array()
 {
     double vals[] = { 4.0, 7.0, 6.0, 5.0 };
-    ll_list l = ll_from_array(vals, 4.0, sizeof(double));
+    ll_list *l = ll_from_array(vals, 4.0, sizeof(double));
 
     printf("Checking linked list creation from array of doubles.\n");
     ll_print_double(l);
@@ -113,20 +113,20 @@ void test_ll_double_from_array()
 void test_ll_search_double()
 {
     double vals[] = { 4.0, 7.0, 6.0, 5.0 };
-    ll_list l = ll_from_array(vals, 4, sizeof(double));
+    ll_list *l = ll_from_array(vals, 4, sizeof(double));
 
     printf("Searching for a value in a list of doubles.\n");
     ll_print_double(l);
 
     ll_node *found = ll_search_double(l, 6.0);
 
-    assert(ll_node_get_double(*found) == 6.0);
+    assert(ll_node_get_double(found) == 6.0);
 }
 
 void test_ll_double_insert()
 {
     double vals[] = { 7.0, 6.0, 5.0 };
-    ll_list l = ll_from_array(vals, 3, sizeof(double));
+    ll_list *l = ll_from_array(vals, 3, sizeof(double));
 
     printf("Checking insertion into linked list of doubles.\n");
 
@@ -137,7 +137,7 @@ void test_ll_double_insert()
     ll_print_double(l);
 
     double n = 4.0;
-    ll_insert_double(&l, &n);
+    ll_insert_double(l, &n);
     ll_print_double(l);
 
     assert(*ll_get_double(l, 0) == 4.0);
