@@ -33,6 +33,7 @@ void ll_remove(ll_list * list, ll_node * node)
     if (node->next) {
         node->next->prev = node->prev;
     }
+    free(node);
 }
 
 // Equality tests
@@ -145,12 +146,10 @@ ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
     assert(count > 0);
     ll_node *node;
     ll_node *prev = NULL;
-
-    ll_node *list_buffer;
-    list_buffer = malloc(count * sizeof(ll_node));
+    ll_node *first = NULL;
 
     for (int i = 0; i < count; i++) {
-        node = list_buffer + i;
+        node = malloc(sizeof(ll_node));
         node->prev = prev;
         node->next = NULL;
         node->key = (void *) ((char *) keys + i * key_size);
@@ -158,11 +157,13 @@ ll_list ll_from_array(void *keys, unsigned int count, size_t key_size)
 
         if (prev)
             prev->next = node;
+        if (i == 0)
+            first = node;
         prev = node;
     }
 
     ll_list list = {
-        .head = list_buffer,
+        .head = first,
         .tail = prev
     };
 
