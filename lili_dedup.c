@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-void ll_dedup(ll_list *list){
+void ll_dedup(ll_list * list)
+{
     ll_node *node, *dup_runner;
 
     node = list->head;
-    while(node){
+    while (node) {
         dup_runner = node->next;
-        while(dup_runner){
-            if(ll_node_eq(node, dup_runner)){
+        while (dup_runner) {
+            if (ll_node_eq(node, dup_runner)) {
                 ll_remove(list, dup_runner);
             }
             dup_runner = dup_runner->next;
@@ -25,16 +26,16 @@ void ll_dedup_int_values_buffered(ll_list * list)
 
     ll_node *node = list->head;
     while (node) {
-	for (int jj = 0; jj < ii; jj++) {
-	    // TODO: revisit this when I have a hash-map
-	    if (values[jj] == ll_node_get_int(*node)) {
-		ll_remove(list, node);
-		break;
-	    }
-	}
-	values[ii] = ll_node_get_int(*node);
-	ii++;
-	node = node->next;
+        for (int jj = 0; jj < ii; jj++) {
+            // TODO: revisit this when I have a hash-map
+            if (values[jj] == ll_node_get_int(*node)) {
+                ll_remove(list, node);
+                break;
+            }
+        }
+        values[ii] = ll_node_get_int(*node);
+        ii++;
+        node = node->next;
     }
 }
 
