@@ -6,19 +6,19 @@ int is_palin_anagram(char *input)
     int found[128] = { 0 };
 
     while (*input) {
-	if (*input != ' ') {
-	    found[(int) *input] += 1;
-	}
-	input++;
+        if (*input != ' ') {
+            found[(int) *input] += 1;
+        }
+        input++;
     }
 
     int found_even = 0;
     for (int i = 0; i < 128; i++) {
-	if (found[i] % 2 == 1) {
-	    if (found_even)
-		return 0;
-	    found_even = 1;
-	}
+        if (found[i] % 2 == 1) {
+            if (found_even)
+                return 0;
+            found_even = 1;
+        }
     }
 
     return 1;

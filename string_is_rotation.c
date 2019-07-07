@@ -9,7 +9,7 @@ int is_rotation(char *str, char *rot)
     int l = strlen(str);
     int lr = strlen(rot);
     if (l != lr)
-	return 0;
+        return 0;
 
     char *double_str = (char *) malloc(2 * l + 1);
 

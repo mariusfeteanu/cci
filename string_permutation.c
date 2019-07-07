@@ -4,8 +4,8 @@
 void count_char(char *array, int *found)
 {
     while (*array) {
-	found[(int) array[0]] += 1;
-	array++;
+        found[(int) array[0]] += 1;
+        array++;
     }
 }
 
@@ -17,10 +17,10 @@ int is_permutation(char *input, char *perm)
     count_char(input, found_input);
     count_char(perm, found_perm);
 
-    for (int i = 1; i < 128; i++) {	//i=0 skipped intentionally, see above
-	if (found_input[i] != found_perm[i]) {
-	    return 0;
-	}
+    for (int i = 1; i < 128; i++) {     //i=0 skipped intentionally, see above
+        if (found_input[i] != found_perm[i]) {
+            return 0;
+        }
     }
 
     return 1;

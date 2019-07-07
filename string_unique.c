@@ -9,12 +9,12 @@ int is_unique(char *input)
     char found[128] = { 0 };
 
     while (*input) {
-	if (found[(int) input[0]]) {
-	    return 0;
-	} else {
-	    found[(int) input[0]] = 1;
-	}
-	input++;
+        if (found[(int) input[0]]) {
+            return 0;
+        } else {
+            found[(int) input[0]] = 1;
+        }
+        input++;
     }
     return 1;
 }

@@ -28,26 +28,26 @@ void compress(char *input, char *output)
     int i = 0, j = 0;
 
     while (input[i]) {
-	if (input[i] == prev) {
-	    occurences++;	// the same char again
-	} else {
-	    emit_compressed(output, prev, &j, &occurences);
-	}
-	prev = input[i];
-	i++;
+        if (input[i] == prev) {
+            occurences++;       // the same char again
+        } else {
+            emit_compressed(output, prev, &j, &occurences);
+        }
+        prev = input[i];
+        i++;
     }
 
     emit_compressed(output, prev, &j, &occurences);
 
     if (j >= i)
-	strcpy(output, input);
+        strcpy(output, input);
 }
 
 #ifdef TEST_string_compression
 void test_compress(char *input, char *expected_output)
 {
     printf("Checking compression of <<%s>> to <<%s>>.\n", input,
-	   expected_output);
+           expected_output);
 
     char output[MAX_SIZE] = { 0 };
     compress(input, output);

@@ -12,7 +12,7 @@ void test_is_substr(char *substr, char *str)
 void test_is_not_substr(char *substr, char *str)
 {
     printf("Check that <<%s>> is not a substring of <<%s>>.\n", substr,
-	   str);
+           str);
     assert(!is_substr(substr, str));
 }
 

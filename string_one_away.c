@@ -7,34 +7,34 @@ int is_close(char *left, char *right)
     int any_change = 0;
 
     while (*left) {
-	if (*right) {		// we still have chars in the right string
-	    if (*left != *right) {
-		// if there is any differences then either
-		// 1. left must equal the rest of right
-		// 2. right must equal the rest of left
-		// 3. the rest of both must the same
-		return (!strcmp(left, right + 1)
-			|| !strcmp(left + 1, right)
-			|| !strcmp(left + 1, right + 1));
-	    }
-	} else {		// we are out of right string
-	    // if we have seen a change before then this would be the second
-	    // we are no longer close
-	    return !any_change;
-	}
-	left++;
-	right++;
+        if (*right) {           // we still have chars in the right string
+            if (*left != *right) {
+                // if there is any differences then either
+                // 1. left must equal the rest of right
+                // 2. right must equal the rest of left
+                // 3. the rest of both must the same
+                return (!strcmp(left, right + 1)
+                        || !strcmp(left + 1, right)
+                        || !strcmp(left + 1, right + 1));
+            }
+        } else {                // we are out of right string
+            // if we have seen a change before then this would be the second
+            // we are no longer close
+            return !any_change;
+        }
+        left++;
+        right++;
     }
     // if I saw any changes so far
     // then nothig should be left on the right
     if (any_change) {
-	return !*right;
+        return !*right;
     }
     // if I did not see any changes then either
     // 1. precisely one char must be left
     // 2. zero characters must be left
     else {
-	return (*right && !*(right + 1)) || !*right;
+        return (*right && !*(right + 1)) || !*right;
     }
 }
 

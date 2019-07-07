@@ -4,9 +4,9 @@
 #include "lili.h"
 
 // int operations
-ll_node *ll_search_value_int(ll_list list, int value)
+ll_node *ll_search_int(ll_list list, int value)
 {
-    return ll_search_value(list, &value, sizeof(int));
+    return ll_search(list, &value, sizeof(int));
 }
 
 void ll_insert_int(ll_list * list, int *value)
@@ -31,10 +31,10 @@ void ll_print_int(ll_list list)
 
     printf("Linked list: {");
     while (node) {
-	printf("[%d]", *(int *) node->key);
-	if (node->next)
-	    printf(" -> ");
-	node = node->next;
+        printf("[%d]", *(int *) node->key);
+        if (node->next)
+            printf(" -> ");
+        node = node->next;
     }
     printf("}\n");
 }

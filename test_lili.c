@@ -13,7 +13,7 @@ void test_ll_eq()
     assert(ll_eq(l, l));
 }
 
-void test_ll_remove_node()
+void test_ll_remove()
 {
     int vals[] = { 4, 7, 6, 5 };
     ll_list l = ll_from_array(vals, 4, sizeof(int));
@@ -26,20 +26,20 @@ void test_ll_remove_node()
     printf("Expecting:\n");
     ll_print_int(e);
 
-    ll_remove_node(&l, l.head->next->next);
+    ll_remove(&l, l.head->next->next);
     printf("Result:\n");
     ll_print_int(l);
 
-    assert(ll_eq_values(l, e));
+    assert(ll_eq(l, e));
 }
 
-void test_ll_search_key()
+void test_ll_search()
 {
     int vals[] = { 4, 7, 6, 5 };
     ll_list l = ll_from_array(vals, 4, sizeof(int));
 
     printf("Checking finding a key reference in a list.\n");
-    ll_node *node = ll_search_key(l, vals + 1);
+    ll_node *node = ll_search(l, vals + 1, sizeof(int));
 
     assert(ll_node_get_int(*node) == 7);
 }
@@ -67,7 +67,7 @@ void test_ll_search_int()
     printf("Searching for a value in a list of ints.\n");
     ll_print_int(l);
 
-    ll_node *found = ll_search_value_int(l, 6);
+    ll_node *found = ll_search_int(l, 6);
 
     assert(ll_node_get_int(*found) == 6);
 }
@@ -118,7 +118,7 @@ void test_ll_search_double()
     printf("Searching for a value in a list of doubles.\n");
     ll_print_double(l);
 
-    ll_node *found = ll_search_value_double(l, 6.0);
+    ll_node *found = ll_search_double(l, 6.0);
 
     assert(ll_node_get_double(*found) == 6.0);
 }
@@ -159,7 +159,7 @@ int main()
     test_ll_double_insert();
 
     test_ll_eq();
-    test_ll_remove_node();
-    test_ll_search_key();
+    test_ll_remove();
+    test_ll_search();
 }
 #endif

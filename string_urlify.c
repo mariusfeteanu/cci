@@ -10,16 +10,16 @@ void urlify(char *input, int real_length)
     int length = strlen(input);
 
     while (real_length) {
-	real_length--;
+        real_length--;
 
-	char curr = input[real_length];
-	if (curr == ' ') {
-	    length -= 3;
-	    memcpy(input + length, SPACE_ESCAPE, 3);
-	} else {
-	    length--;
-	    input[length] = curr;
-	}
+        char curr = input[real_length];
+        if (curr == ' ') {
+            length -= 3;
+            memcpy(input + length, SPACE_ESCAPE, 3);
+        } else {
+            length--;
+            input[length] = curr;
+        }
     }
 }
 
