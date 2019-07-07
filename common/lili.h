@@ -17,6 +17,7 @@ typedef struct ll_list_s {
 } ll_list;
 
 // manipulation
+ll_list *ll_empty();
 void ll_insert(ll_list * list, void *key, size_t key_size);
 void ll_remove(ll_list * list, ll_node * node);
 // equality tests
