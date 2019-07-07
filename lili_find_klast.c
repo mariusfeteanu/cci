@@ -7,7 +7,7 @@ ll_node *ll_find_klast(ll_list * list, int k)
     ll_node *curr = list->head;
 
     // run ahead k steps
-    while (k > 0 && runn) {
+    while (k > 0 && runn->next) {
         runn = runn->next;
         k--;
     }
@@ -38,10 +38,28 @@ void test_ll_find_klast()
     assert(expected_last == klast);
 }
 
+void test_ll_find_klast_single()
+{
+    printf("Checking duplicate removal (by value, integers, buffered).\n");
+
+    int vals[] = { 4 };
+    ll_list *l = ll_from_array(vals, 1, sizeof(int));
+
+    int expected_last = 4;
+
+    ll_print_int(l);
+
+    int klast = ll_node_get_int(ll_find_klast(l, 1));
+    printf("Expected %d, found %d.\n", expected_last, klast);
+
+    assert(expected_last == klast);
+}
+
 int main()
 {
     setbuf(stdout, NULL);
 
     test_ll_find_klast();
+    test_ll_find_klast_single();
 }
 #endif
