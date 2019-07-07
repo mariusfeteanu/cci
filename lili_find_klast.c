@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-ll_node *ll_find_klast(ll_list list, int k){
-    // TODO: this leaks the memory for this list
-    ll_list *reversed = ll_empty();
+ll_node *ll_find_klast(ll_list list, int k)
+{
+    ll_node *runn = list.head;
+    ll_node *curr = list.head;
 
-    ll_node *node = list.head;
-    while (node){
-        ll_insert(reversed, node->key, node->key_size);
-        node = node->next;
-    }
-
-    node = reversed->head;
-    while ( k > 0 && node){
+    // run ahead k steps
+    while (k > 0 && runn) {
+        runn = runn->next;
         k--;
-        node = node->next;
     }
 
-    return node;
+    while (runn->next) {
+        curr = curr->next;
+        runn = runn->next;
+    }
+
+    return curr;
 }
 
 #ifdef TEST_lili_find_klast

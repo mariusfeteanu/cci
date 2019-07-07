@@ -18,7 +18,7 @@ void ll_insert(ll_list * list, void *key, size_t key_size)
     node->key = key;
     node->key_size = key_size;
 
-    if(list->head)
+    if (list->head)
         list->head->prev = node;
     list->head = node;
 }
