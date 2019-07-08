@@ -8,3 +8,5 @@
 !.gitignore
 !.travis.yml
 !.travis.make
+!LICENSE
+!README

@@ -33,9 +33,6 @@ bin/%: %.c common
 common: $(COMMON_OBJECTS)
 
 clean:
-	for f in $(PROGRAMS); do \
-	rm -fr $$f $$f.dSYM $$f.c~; \
-	done
 	rm -f $(COMMON_OBJECTS)
 	rm -rf ./report/
 	rm -rf ./bin/
