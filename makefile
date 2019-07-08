@@ -8,6 +8,7 @@ CC=cc
 PROGRAMS=$(patsubst %.c,bin/%,$(wildcard *.c))
 REPORTS=$(patsubst %.c,report/%,$(wildcard *.c))
 COMMON_OBJECTS=$(patsubst %.c,%.o,$(wildcard common/*.c))
+COMMON_HEADERS=$(wildcard common/*.h)
 
 # Use default make rules to build
 build: $(PROGRAMS)
@@ -20,17 +21,13 @@ report/%: bin/%
 
 # Build and add test flag to add the test function and main function
 # to each compiled program. Also include helper code from the common dir
-bin/%: %.c common
+bin/%: %.c common $(COMMON_OBJECTS) $(COMMON_HEADERS)
 	mkdir -p bin
 	$(CC) $(CFLAGS) \
 	-DTEST_$* \
 	$*.c \
 	$(COMMON_OBJECTS) \
 	-o bin/$*
-
-# Helper functions and typedefs
-# Mostly implementation of data structs
-common: $(COMMON_OBJECTS)
 
 clean:
 	rm -f $(COMMON_OBJECTS)
