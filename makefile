@@ -39,16 +39,22 @@ bin/%: %.c common $(COMMON_OBJECTS) $(COMMON_HEADERS)
 clean:
 	rm -rf ./report/
 	rm -rf ./bin/
+	rm -rf ./indent/
 
 # Use GNU indent on all files.
-# N.B.: this does not trigger a rebuild
+# Just to work around indent fiddling with timestamps...
 %.indent: %
-	VERSION_CONTROL=none indent \
+	@mkdir -p indent/common
+	@VERSION_CONTROL=none indent \
 	    --k-and-r-style \
-	    --no-tabs \
-	    --preserve-mtime $< \
-	    --output $<~
-	if [ `cmp --silent $<~ $<` ]; then mv $<~ $<; else rm $<~; fi
+	    --no-tabs $< \
+	    --output indent/$<~
+	@if cmp --silent indent/$<~ $<; then \
+		rm indent/$<~; \
+    else \
+    	mv indent/$<~ $< && touch $< && echo "indenting $<"; \
+    fi
+	@rm -rf indent/common indent/
 
 indent: $(patsubst %, %.indent, \
             $(wildcard *.c) \
