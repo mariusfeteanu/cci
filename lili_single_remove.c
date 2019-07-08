@@ -8,8 +8,9 @@
 //  on a doubly linked - this breaks it but it's okay for this example
 // This only works for middle nodes
 // (not heads or tails)
-void lls_remove(ll_node *node){
-    ll_node *next=node->next;
+void lls_remove(ll_node * node)
+{
+    ll_node *next = node->next;
 
     node->key = next->key;
     node->key_size = next->key_size;

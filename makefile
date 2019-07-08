@@ -42,11 +42,15 @@ clean:
 
 # Use GNU indent on all files.
 # It's half broken and touches all the files but it works..
-indent: $(wildcard *.c) \
-        $(wildcard *.h) \
-        $(wildcard common/*.c) \
-        $(wildcard common/*.h)
-	VERSION_CONTROL=none indent -kr -ci2 -nut $?
+%.indent: %
+	VERSION_CONTROL=none indent \
+	    --k-and-r-style \
+	    --no-tabs \
+	    --preserve-mtime $<
+indent: $(patsubst %, %.indent, \
+            $(wildcard *.c) \
+            $(wildcard common/*.c) \
+            $(wildcard common/*.h))
 
 # Separate build for travis. Mostly because making bash on travis work sucks
 %.travis: bin/%
