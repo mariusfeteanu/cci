@@ -1,12 +1,2 @@
-*
-!*.c
-!common/
-!common/*.c
-!*.h
-!common/*h
-!makefile
-!.gitignore
-!.travis.yml
-!.travis.make
-!LICENSE
-!README.md
+bin/
+report/
