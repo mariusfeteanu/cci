@@ -1,5 +1,5 @@
 OBJECTS=
-CFLAGS=-g -Wall -Werror -O0 -pedantic -std=c11
+CFLAGS=-g -Wall -Werror -Og -pedantic -std=c11
 LDLIBS=
 CC=cc
 
@@ -8,6 +8,9 @@ CC=cc
 PROGRAMS=$(patsubst %.c,bin/%,$(wildcard *.c))
 REPORTS=$(patsubst %.c,report/%,$(wildcard *.c))
 COMMON_OBJECTS=$(patsubst %.c,%.o,$(wildcard common/*.c))
+
+# Use default make rules to build
+build: $(PROGRAMS)
 
 test: $(REPORTS)
 report/%: bin/%
@@ -23,9 +26,6 @@ bin/%: %.c common
 	-o bin/$*
 
 common: $(COMMON_OBJECTS)
-
-# Use default make rules to build
-build: $(PROGRAMS)
 
 clean:
 	for f in $(PROGRAMS); do \
