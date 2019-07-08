@@ -41,12 +41,15 @@ clean:
 	rm -rf ./bin/
 
 # Use GNU indent on all files.
-# It's half broken and touches all the files but it works..
+# N.B.: this does not trigger a rebuild
 %.indent: %
 	VERSION_CONTROL=none indent \
 	    --k-and-r-style \
 	    --no-tabs \
-	    --preserve-mtime $<
+	    --preserve-mtime $< \
+	    --output $<~
+	if [ `cmp --silent $<~ $<` ]; then mv $<~ $<; else rm $<~; fi
+
 indent: $(patsubst %, %.indent, \
             $(wildcard *.c) \
             $(wildcard common/*.c) \
