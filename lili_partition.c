@@ -11,6 +11,23 @@ void ll_partition(ll_list * list, int pv)
         ll_node *next = node->next;
 
         if (nv >= pv) {
+            // cut from current list
+//            if(node->prev){
+//                node->prev->next = node->next;
+//            }
+//            else if (node->next) {
+//                node->next->prev = NULL;
+//            } else {
+//            }
+//
+//            if(node->next){
+//                node->next->prev = node->prev;
+//            } else if (node->prev) {
+//                node->prev->next = NULL;
+//            } else {
+//            }
+            // paste to new list
+            // This is simpler but slower
             ll_insert(p2, node->key, node->key_size);
             ll_remove(list, node);
         }
@@ -36,7 +53,7 @@ void test_ll_partition()
 
     ll_partition(l, pv);
 
-    printf("After removal:\n");
+    printf("After partition:\n");
 
     ll_print_int(l);
 

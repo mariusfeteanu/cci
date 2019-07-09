@@ -29,6 +29,8 @@ void ll_remove(ll_list * list, ll_node * node)
         node->prev->next = node->next;
     } else {
         list->head = node->next;
+        // TODO: head node now points to a non existsent prev
+        // see lili_partition.c
     }
     if (node->next) {
         node->next->prev = node->prev;
