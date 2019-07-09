@@ -12,26 +12,31 @@ void ll_partition(ll_list * list, int pv)
 
         if (nv >= pv) {
             // cut from current list
-//            if(node->prev){
-//                node->prev->next = node->next;
-//            }
-//            else if (node->next) {
-//                node->next->prev = NULL;
-//            } else {
-//            }
-//
-//            if(node->next){
-//                node->next->prev = node->prev;
-//            } else if (node->prev) {
-//                node->prev->next = NULL;
-//            } else {
-//            }
+           if(node->prev){
+               node->prev->next = node->next;
+           } else {
+             list->head = node->next;
+             p2->head = node;
+             p2->tail = node;
+           }
+           if(node->next){
+               node->next->prev = node->prev;
+           } else {
+             list->tail = node->prev;
+           }
+           // paste to other list
+           node->prev = p2->tail;
+           node->next = NULL;
+           if(p2->tail){
+             p2->tail->next = node;
+           }
+
+           // free(node);
             // paste to new list
             // This is simpler but slower
-            ll_insert(p2, node->key, node->key_size);
-            ll_remove(list, node);
+            // ll_insert(p2, node->key, node->key_size);
+            // ll_remove(list, node);
         }
-
         node = next;
     }
 
