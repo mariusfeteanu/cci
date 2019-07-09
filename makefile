@@ -46,14 +46,14 @@ clean:
 %.indent: %
 	@mkdir -p indent/common
 	@VERSION_CONTROL=none indent \
-	    --k-and-r-style \
-	    --no-tabs $< \
-	    --output indent/$<~
+			--k-and-r-style \
+			--no-tabs $< \
+			--output indent/$<~
 	@if cmp --silent indent/$<~ $<; then \
 		rm indent/$<~; \
-    else \
-    	mv indent/$<~ $< && touch $< && echo "indenting $<"; \
-    fi
+	else \
+		mv indent/$<~ $< && touch $< && echo "indenting $<"; \
+	fi
 	@rm -rf indent/common indent/
 
 indent: $(patsubst %, %.indent, \
