@@ -21,7 +21,7 @@ void test_ll_destroy_node()
     int expected_vals[] = { 4, 7, 5 };
     ll_list *e = ll_from_array(expected_vals, 3, sizeof(int));
 
-    printf("Checking removing nodes from list:\n");
+    printf("Checking destroying nodes from list:\n");
     ll_print_int(l);
     printf("Expecting:\n");
     ll_print_int(e);
@@ -31,6 +31,27 @@ void test_ll_destroy_node()
     ll_print_int(l);
 
     assert(ll_eq(l, e));
+}
+
+void test_ll_destroy_node_head()
+{
+    int vals[] = { 4, 7, 6, 5 };
+    ll_list *l = ll_from_array(vals, 4, sizeof(int));
+
+    int expected_vals[] = { 7, 6, 5 };
+    ll_list *e = ll_from_array(expected_vals, 3, sizeof(int));
+
+    printf("Checking destroying the head node from list:\n");
+    ll_print_int(l);
+    printf("Expecting:\n");
+    ll_print_int(e);
+
+    ll_destroy_node(l, l->head);
+    printf("Result:\n");
+    ll_print_int(l);
+
+    assert(ll_eq(l, e));
+    assert(!l->head->prev);
 }
 
 void test_ll_search()
@@ -160,6 +181,7 @@ int main()
 
     test_ll_eq();
     test_ll_destroy_node();
+    test_ll_destroy_node_head();
     test_ll_search();
 }
 #endif
