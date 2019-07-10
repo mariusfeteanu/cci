@@ -9,7 +9,7 @@ ll_list *ll_empty()
     return calloc(1, sizeof(ll_node));
 }
 
-void ll_insert(ll_list * list, void *key, size_t key_size)
+void ll_create_node(ll_list * list, void *key, size_t key_size)
 {
     ll_node *node = malloc(sizeof(ll_node));
 
@@ -23,7 +23,7 @@ void ll_insert(ll_list * list, void *key, size_t key_size)
     list->head = node;
 }
 
-void ll_remove(ll_list * list, ll_node * node)
+void ll_destroy_node(ll_list * list, ll_node * node)
 {
     if (node->prev) {
         node->prev->next = node->next;

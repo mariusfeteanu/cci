@@ -11,7 +11,7 @@ void ll_dedup(ll_list * list)
         while (dup_runner) {
             if (ll_node_eq(node, dup_runner)) {
                 ll_node *skip = dup_runner->next;
-                ll_remove(list, dup_runner);
+                ll_destroy_node(list, dup_runner);
                 dup_runner = skip;
             } else {
                 dup_runner = dup_runner->next;

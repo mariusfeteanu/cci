@@ -18,8 +18,8 @@ typedef struct ll_list_s {
 
 // manipulation
 ll_list *ll_empty();
-void ll_insert(ll_list * list, void *key, size_t key_size);
-void ll_remove(ll_list * list, ll_node * node);
+void ll_create_node(ll_list * list, void *key, size_t key_size);
+void ll_destroy_node(ll_list * list, ll_node * node);
 // equality tests
 int ll_node_eq_value(ll_node * node, char *value, int size);
 int ll_node_eq(ll_node * left, ll_node * right);
@@ -36,14 +36,14 @@ ll_list *ll_from_array(void *keys, unsigned int count, size_t key_size);
 
 // int helper function
 ll_node *ll_search_int(ll_list * list, int value);
-void ll_insert_int(ll_list * list, int *value);
+void ll_create_node_int(ll_list * list, int *value);
 int ll_node_get_int(ll_node * node);
 int *ll_get_int(ll_list * list, int index);
 void ll_print_int(ll_list * list);
 
 // double helper function
 ll_node *ll_search_double(ll_list * list, double value);
-void ll_insert_double(ll_list * list, double *value);
+void ll_create_node_double(ll_list * list, double *value);
 double ll_node_get_double(ll_node * node);
 double *ll_get_double(ll_list * list, int index);
 void ll_print_double(ll_list * list);

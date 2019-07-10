@@ -13,7 +13,7 @@ void test_ll_eq()
     assert(ll_eq(l, l));
 }
 
-void test_ll_remove()
+void test_ll_destroy_node()
 {
     int vals[] = { 4, 7, 6, 5 };
     ll_list *l = ll_from_array(vals, 4, sizeof(int));
@@ -26,7 +26,7 @@ void test_ll_remove()
     printf("Expecting:\n");
     ll_print_int(e);
 
-    ll_remove(l, l->head->next->next);
+    ll_destroy_node(l, l->head->next->next);
     printf("Result:\n");
     ll_print_int(l);
 
@@ -86,7 +86,7 @@ void test_ll_int_insert()
     ll_print_int(l);
 
     int n = 4.0;
-    ll_insert_int(l, &n);
+    ll_create_node_int(l, &n);
     ll_print_int(l);
 
     assert(*ll_get_int(l, 0) == 4);
@@ -137,7 +137,7 @@ void test_ll_double_insert()
     ll_print_double(l);
 
     double n = 4.0;
-    ll_insert_double(l, &n);
+    ll_create_node_double(l, &n);
     ll_print_double(l);
 
     assert(*ll_get_double(l, 0) == 4.0);
@@ -159,7 +159,7 @@ int main()
     test_ll_double_insert();
 
     test_ll_eq();
-    test_ll_remove();
+    test_ll_destroy_node();
     test_ll_search();
 }
 #endif

@@ -18,7 +18,7 @@ void lls_remove(ll_node * node)
 }
 
 #ifdef TEST_lili_single_remove
-void test_ll_remove()
+void test_ll_destroy_node()
 {
     int vals[] = { 4, 7, 6, 5 };
     ll_list *l = ll_from_array(vals, 4, sizeof(int));
@@ -42,6 +42,6 @@ int main()
 {
     setbuf(stdout, NULL);
 
-    test_ll_remove();
+    test_ll_destroy_node();
 }
 #endif
