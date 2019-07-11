@@ -9,7 +9,7 @@ ll_list *ll_empty()
     return calloc(1, sizeof(ll_node));
 }
 
-void ll_create_node(ll_list * list, void *key, size_t key_size)
+void ll_create_head_node(ll_list * list, void *key, size_t key_size)
 {
     ll_node *node = malloc(sizeof(ll_node));
 
@@ -21,6 +21,24 @@ void ll_create_node(ll_list * list, void *key, size_t key_size)
     if (list->head)
         list->head->prev = node;
     list->head = node;
+    if (!list->tail)
+      list->tail = node;
+}
+
+void ll_create_tail_node(ll_list * list, void *key, size_t key_size)
+{
+    ll_node *node = malloc(sizeof(ll_node));
+
+    node->next = NULL;
+    node->prev = list->tail;
+    node->key = key;
+    node->key_size = key_size;
+
+    if (list->tail)
+        list->tail->next = node;
+    list->tail = node;
+    if (!list->head)
+      list->head = node;
 }
 
 void ll_destroy_node(ll_list * list, ll_node * node)

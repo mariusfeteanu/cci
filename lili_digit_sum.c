@@ -19,21 +19,10 @@ ll_list *ll_digit_sum(ll_list *x, ll_list *y)
       yn = yn->next;
     }
 
-    ll_node *node = malloc(sizeof(ll_node));
     int *magic_int = malloc(sizeof(int));
     *magic_int = current_sum%10;
 
-    node->prev = sum->tail;
-    node->next = NULL;
-    node->key = magic_int;
-    node->key_size = sizeof(int);
-
-    if (sum->tail)
-        sum->tail->next = node;
-    if (!sum->head)
-      sum->head = node;
-    sum->tail = node;
-
+    ll_create_tail_node_int(sum, magic_int);
     carry = current_sum/10;
   }
 

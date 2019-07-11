@@ -8,9 +8,14 @@ ll_node *ll_search_double(ll_list * list, double value)
     return ll_search(list, &value, sizeof(double));
 }
 
-void ll_create_node_double(ll_list * list, double *value)
+void ll_create_head_node_double(ll_list * list, double *value)
 {
-    ll_create_node(list, (void *) value, sizeof(double));
+    ll_create_head_node(list, (void *) value, sizeof(double));
+}
+
+void ll_create_tail_node_double(ll_list * list, double *value)
+{
+    ll_create_tail_node(list, (void *) value, sizeof(double));
 }
 
 double ll_node_get_double(ll_node * node)
