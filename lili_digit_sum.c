@@ -26,6 +26,12 @@ ll_list *ll_digit_sum(ll_list *x, ll_list *y)
     carry = current_sum/10;
   }
 
+  if(carry){
+    int *magic_int = malloc(sizeof(int));
+    *magic_int = carry;
+    ll_create_tail_node_int(sum, magic_int);
+  }
+
   return sum;
 }
 
@@ -42,7 +48,7 @@ void test_ll_digit_sum(ll_list *x, ll_list *y, ll_list *expected_sum)
   printf("Calculated result:\n");
   ll_print_int(sum);
   assert(ll_eq(sum, expected_sum));
-  printf("Looks good");
+  printf("Looks good!\n");
 }
 
 int main()
@@ -51,8 +57,38 @@ int main()
 
     test_ll_digit_sum(
       ll_from_array((int []){7, 1, 6}, 3, sizeof(int)),
+      ll_from_array((int []){5, 9, 2, 1}, 4, sizeof(int)),
+      ll_from_array((int []){2, 1, 9, 1}, 4, sizeof(int))
+    );
+
+    test_ll_digit_sum(
+      ll_from_array((int []){7, 1, 6}, 3, sizeof(int)),
+      ll_from_array((int []){5, 9, 6}, 3, sizeof(int)),
+      ll_from_array((int []){2, 1, 3, 1}, 4, sizeof(int))
+    );
+
+    test_ll_digit_sum(
+      ll_from_array((int []){7, 1, 6}, 3, sizeof(int)),
       ll_from_array((int []){5, 9, 2}, 3, sizeof(int)),
       ll_from_array((int []){2, 1, 9}, 3, sizeof(int))
+    );
+
+    test_ll_digit_sum(
+      ll_from_array((int []){4}, 1, sizeof(int)),
+      ll_from_array((int []){5}, 1, sizeof(int)),
+      ll_from_array((int []){9}, 1, sizeof(int))
+    );
+
+    test_ll_digit_sum(
+      ll_empty(),
+      ll_from_array((int []){1}, 1, sizeof(int)),
+      ll_from_array((int []){1}, 1, sizeof(int))
+    );
+
+    test_ll_digit_sum(
+      ll_empty(),
+      ll_empty(),
+      ll_empty()
     );
 }
 #endif
