@@ -29,13 +29,35 @@ void ll_destroy_node(ll_list * list, ll_node * node)
         node->prev->next = node->next;
     } else {
         list->head = node->next;
-        // TODO: head node now points to a non existsent prev
-        // see lili_partition.c
     }
     if (node->next) {
         node->next->prev = node->prev;
     }
     free(node);
+}
+
+void ll_insert_node(ll_list * list, ll_node *node)
+{
+    node->prev = NULL; // not necessary if node is clean, but still...
+    node->next = list->head;
+
+    if (list->head)
+        list->head->prev = node;
+    list->head = node;
+}
+
+void ll_remove_node(ll_list * list, ll_node * node)
+{
+    if (node->prev) {
+        node->prev->next = node->next;
+    } else {
+        list->head = node->next;
+    }
+    if (node->next) {
+        node->next->prev = node->prev;
+    }
+    node->next = NULL;
+    node->prev = NULL;
 }
 
 // Equality tests

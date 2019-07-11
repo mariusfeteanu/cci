@@ -18,8 +18,12 @@ typedef struct ll_list_s {
 
 // manipulation
 ll_list *ll_empty();
+// value based
 void ll_create_node(ll_list * list, void *key, size_t key_size);
 void ll_destroy_node(ll_list * list, ll_node * node);
+// node based
+void ll_insert_node(ll_list * list, ll_node *node);
+void ll_remove_node(ll_list * list, ll_node * node);
 // equality tests
 int ll_node_eq_value(ll_node * node, char *value, int size);
 int ll_node_eq(ll_node * left, ll_node * right);
