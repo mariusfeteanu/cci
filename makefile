@@ -19,7 +19,7 @@ build: $(PROGRAMS)
 # On test generate some reports with the output of each program
 test: $(REPORTS)
 report/%: bin/%
-	@echo -e "\n\n######## $* ########"
+	@echo -e "\n\n###TEST### $*###TEST###"
 	mkdir -p report && rm -f $@ && set -o pipefail && ./bin/$* | tee $@
 
 # Build common objects in their own dir as object files
@@ -29,6 +29,7 @@ bin/common/%.o: common/%.c
 # Build and add test flag to add the test function and main function
 # to each compiled program. Also include helper code from the common dir
 bin/%: %.c common $(COMMON_OBJECTS) $(COMMON_HEADERS)
+	@echo -e "\n\n###BUILD### $* ###BUILD###"
 	mkdir -p bin
 	$(CC) $(CFLAGS) \
 	-DTEST_$* \
@@ -36,10 +37,25 @@ bin/%: %.c common $(COMMON_OBJECTS) $(COMMON_HEADERS)
 	$(COMMON_OBJECTS) \
 	-o bin/$*
 
-clean:
-	rm -rf ./report/
+# TODO: this does not calculate coverage for common objects
+coverage: clean $(patsubst %,cov/%.gcov,$(wildcard *.c))
 	rm -rf ./bin/
-	rm -rf ./indent/
+	@if grep "\#\#\#\#" cov/*.c.gcov ; then \
+		echo "Found not covered code, see above"; \
+		exit 1; \
+	else \
+		echo "All code covered"; \
+	fi
+cov/%.c.gcov: CFLAGS += -fprofile-arcs -ftest-coverage
+cov/%.c.gcov: bin/%
+	@echo -e "\n\n###COVER### $*###COVER###"
+	mkdir -p cov
+	./bin/$*
+	gcov $*.gcda
+	mv $*.gcda $*.gcno $*.c.gcov ./cov/
+
+clean:
+	rm -rf ./report/ ./bin/ ./indent/ *.gcno *.gcda *.c.gcov ./cov/
 
 # Use GNU indent on all files.
 # Just to work around indent fiddling with timestamps...
@@ -60,9 +76,3 @@ indent: $(patsubst %, %.indent, \
             $(wildcard *.c) \
             $(wildcard common/*.c) \
             $(wildcard common/*.h))
-
-# Separate build for travis. Mostly because making bash on travis work sucks
-%.travis: bin/%
-	@echo -e "\n\n######## $* ########"
-	./bin/$*
-travis: $(patsubst %.c,%.travis,$(wildcard *.c))

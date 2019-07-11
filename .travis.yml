@@ -5,6 +5,6 @@ language: c
 compiler:
     - gcc
 script:
-    - make travis
+    - make coverage
 notifications:
   email: false
