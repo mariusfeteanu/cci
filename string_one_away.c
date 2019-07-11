@@ -25,17 +25,10 @@ int is_close(char *left, char *right)
         left++;
         right++;
     }
-    // if I saw any changes so far
-    // then nothig should be left on the right
-    if (any_change) {
-        return !*right;
-    }
     // if I did not see any changes then either
     // 1. precisely one char must be left
     // 2. zero characters must be left
-    else {
-        return (*right && !*(right + 1)) || !*right;
-    }
+    return (*right && !*(right + 1)) || !*right;
 }
 
 #ifdef TEST_string_one_away
