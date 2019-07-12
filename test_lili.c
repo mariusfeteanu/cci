@@ -116,57 +116,6 @@ void test_ll_int_insert()
     assert(*ll_get_int(l, 3) == 5);
 }
 
-// ***** double tests *****
-void test_ll_double_from_array()
-{
-    double vals[] = { 4.0, 7.0, 6.0, 5.0 };
-    ll_list *l = ll_from_array(vals, 4.0, sizeof(double));
-
-    printf("Checking linked list creation from array of doubles.\n");
-    ll_print_double(l);
-
-    assert(*ll_get_double(l, 0) == 4.0);
-    assert(*ll_get_double(l, 1) == 7.0);
-    assert(*ll_get_double(l, 2) == 6.0);
-    assert(*ll_get_double(l, 3) == 5.0);
-}
-
-void test_ll_search_double()
-{
-    double vals[] = { 4.0, 7.0, 6.0, 5.0 };
-    ll_list *l = ll_from_array(vals, 4, sizeof(double));
-
-    printf("Searching for a value in a list of doubles.\n");
-    ll_print_double(l);
-
-    ll_node *found = ll_search_double(l, 6.0);
-
-    assert(ll_node_get_double(found) == 6.0);
-}
-
-void test_ll_double_insert()
-{
-    double vals[] = { 7.0, 6.0, 5.0 };
-    ll_list *l = ll_from_array(vals, 3, sizeof(double));
-
-    printf("Checking insertion into linked list of doubles.\n");
-
-    assert(*ll_get_double(l, 0) == 7.0);
-    assert(*ll_get_double(l, 1) == 6.0);
-    assert(*ll_get_double(l, 2) == 5.0);
-    assert(ll_length(l) == 3);
-    ll_print_double(l);
-
-    double n = 4.0;
-    ll_create_head_node_double(l, &n);
-    ll_print_double(l);
-
-    assert(*ll_get_double(l, 0) == 4.0);
-    assert(*ll_get_double(l, 1) == 7.0);
-    assert(*ll_get_double(l, 2) == 6.0);
-    assert(*ll_get_double(l, 3) == 5.0);
-}
-
 int main()
 {
     setbuf(stdout, NULL);
@@ -174,10 +123,6 @@ int main()
     test_ll_int_from_array();
     test_ll_search_int();
     test_ll_int_insert();
-
-    test_ll_double_from_array();
-    test_ll_search_double();
-    test_ll_double_insert();
 
     test_ll_eq();
     test_ll_destroy_node();

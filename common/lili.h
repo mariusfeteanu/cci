@@ -46,11 +46,3 @@ void ll_create_tail_node_int(ll_list * list, int *value);
 int ll_node_get_int(ll_node * node);
 int *ll_get_int(ll_list * list, int index);
 void ll_print_int(ll_list * list);
-
-// double helper function
-ll_node *ll_search_double(ll_list * list, double value);
-void ll_create_head_node_double(ll_list * list, double *value);
-void ll_create_tail_node_double(ll_list * list, double *value);
-double ll_node_get_double(ll_node * node);
-double *ll_get_double(ll_list * list, int index);
-void ll_print_double(ll_list * list);
