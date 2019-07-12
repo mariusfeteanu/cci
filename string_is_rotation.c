@@ -16,7 +16,11 @@ int is_rotation(char *str, char *rot)
     memcpy(double_str, str, l);
     memcpy(double_str + l, str, l + 1);
 
-    return is_substr(rot, double_str);
+    int retval = is_substr(rot, double_str);
+
+    free(double_str);
+
+    return retval;
 }
 
 #ifdef TEST_string_is_rotation

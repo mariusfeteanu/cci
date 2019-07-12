@@ -11,6 +11,8 @@ void test_ll_eq()
     ll_list *l = ll_from_array(vals, 4, sizeof(int));
 
     assert(ll_eq(l, l));
+
+    ll_destroy(l);
 }
 
 void test_ll_destroy_node()
@@ -31,6 +33,9 @@ void test_ll_destroy_node()
     ll_print_int(l);
 
     assert(ll_eq(l, e));
+
+    ll_destroy(l);
+    ll_destroy(e);
 }
 
 void test_ll_destroy_node_head()
@@ -52,6 +57,9 @@ void test_ll_destroy_node_head()
 
     assert(ll_eq(l, e));
     assert(!l->head->prev);
+
+    ll_destroy(l);
+    ll_destroy(e);
 }
 
 void test_ll_search()
@@ -63,6 +71,8 @@ void test_ll_search()
     ll_node *node = ll_search(l, vals + 1, sizeof(int));
 
     assert(ll_node_get_int(node) == 7);
+
+    ll_destroy(l);
 }
 
 // ***** int tests ******
@@ -78,6 +88,8 @@ void test_ll_int_from_array()
     assert(*ll_get_int(l, 1) == 7);
     assert(*ll_get_int(l, 2) == 6);
     assert(*ll_get_int(l, 3) == 5);
+
+    ll_destroy(l);
 }
 
 void test_ll_search_int()
@@ -91,6 +103,8 @@ void test_ll_search_int()
     ll_node *found = ll_search_int(l, 6);
 
     assert(ll_node_get_int(found) == 6);
+
+    ll_destroy(l);
 }
 
 void test_ll_int_insert()
@@ -114,6 +128,9 @@ void test_ll_int_insert()
     assert(*ll_get_int(l, 1) == 7);
     assert(*ll_get_int(l, 2) == 6);
     assert(*ll_get_int(l, 3) == 5);
+
+    ll_destroy_node_and_value(l, l->head);
+    ll_destroy(l);
 }
 
 int main()

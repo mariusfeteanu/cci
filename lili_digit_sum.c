@@ -81,9 +81,10 @@ ll_list *ll_digit_rev_sum(ll_list * x, ll_list * y)
     }
 
     if (ll_node_get_int(sum->head) == 0) {
-        ll_destroy_node(sum, sum->head);
+        ll_destroy_node_and_value(sum, sum->head);
     }
 
+    ll_destroy_all(simple_sum);
     return sum;
 }
 
@@ -101,6 +102,12 @@ void test_ll_digit_sum(ll_list * x, ll_list * y, ll_list * expected_sum)
     ll_print_int(sum);
     assert(ll_eq(sum, expected_sum));
     printf("Looks good!\n");
+
+    ll_destroy_all(sum);
+    // freeing these as I know they don't get re-used
+    ll_destroy(x);
+    ll_destroy(y);
+    ll_destroy(expected_sum);
 }
 
 void test_ll_digit_rev_sum(ll_list * x, ll_list * y,
@@ -117,6 +124,12 @@ void test_ll_digit_rev_sum(ll_list * x, ll_list * y,
     ll_print_int(sum);
     assert(ll_eq(sum, expected_sum));
     printf("Looks good!\n");
+
+    ll_destroy_all(sum);
+    // freeing these as I know they don't get re-used
+    ll_destroy(x);
+    ll_destroy(y);
+    ll_destroy(expected_sum);
 }
 
 int main()

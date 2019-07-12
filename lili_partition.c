@@ -20,6 +20,7 @@ void ll_partition(ll_list * list, int pv)
     list->tail->next = p2->head;
     p2->head->prev = list->tail;
     list->tail = p2->tail;
+    free(p2);
 }
 
 #ifdef TEST_lili_partition
@@ -57,6 +58,8 @@ void test_ll_partition()
     }
 
     assert(previous_length == ll_length(l));
+
+    ll_destroy(l);
 }
 
 int main()

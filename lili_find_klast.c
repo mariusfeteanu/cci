@@ -36,6 +36,8 @@ void test_ll_find_klast()
     printf("Expected %d, found %d.\n", expected_last, klast);
 
     assert(expected_last == klast);
+
+    ll_destroy(l);
 }
 
 void test_ll_find_klast_single()
@@ -53,6 +55,8 @@ void test_ll_find_klast_single()
     printf("Expected %d, found %d.\n", expected_last, klast);
 
     assert(expected_last == klast);
+
+    ll_destroy(l);
 }
 
 int main()

@@ -15,6 +15,7 @@ void lls_remove(ll_node * node)
     node->key = next->key;
     node->key_size = next->key_size;
     node->next = next->next;
+    free(next);
 }
 
 #ifdef TEST_lili_single_remove
@@ -36,6 +37,9 @@ void test_ll_destroy_node()
     ll_print_int(l);
 
     assert(ll_eq(l, e));
+
+    ll_destroy(l);
+    ll_destroy(e);
 }
 
 int main()

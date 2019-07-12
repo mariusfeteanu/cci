@@ -61,6 +61,26 @@ void ll_destroy_node_and_value(ll_list *list, ll_node *node){
     free(vp);
 }
 
+void ll_destroy(ll_list *list){
+    ll_node *node = list->head;
+    while(node){
+        ll_node *next = node->next;
+        ll_destroy_node(list, node);
+        node = next;
+    }
+    free(list);
+}
+
+void ll_destroy_all(ll_list *list){
+    ll_node *node = list->head;
+    while(node){
+        ll_node *next = node->next;
+        ll_destroy_node_and_value(list, node);
+        node = next;
+    }
+    free(list);
+}
+
 void ll_insert_node(ll_list * list, ll_node * node)
 {
     node->prev = NULL;          // not necessary if node is clean, but still...

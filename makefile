@@ -54,8 +54,14 @@ cov/%.c.gcov: bin/%
 	gcov $*.gcda
 	mv $*.gcda $*.gcno $*.c.gcov ./cov/
 
+leakcheck: $(patsubst %.c,leakcheck/%,$(wildcard *.c))
+leakcheck/%: bin/%
+	mkdir -p leakcheck
+	valgrind --leak-check=yes --error-exitcode=1 ./bin/$*
+	touch leakcheck/$*
+
 clean:
-	rm -rf ./report/ ./bin/ ./indent/ *.gcno *.gcda *.c.gcov ./cov/
+	rm -rf ./report/ ./bin/ ./indent/ *.gcno *.gcda *.c.gcov ./cov/ ./leakcheck/
 
 # Use GNU indent on all files.
 # Just to work around indent fiddling with timestamps...

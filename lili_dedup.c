@@ -41,6 +41,8 @@ void test_ll_dedup()
     ll_print_int(l);
 
     assert(ll_eq(l, d));
+    ll_destroy(l);
+    ll_destroy(d);
 
     printf("Worked!\n");
 }
