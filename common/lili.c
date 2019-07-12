@@ -22,7 +22,7 @@ void ll_create_head_node(ll_list * list, void *key, size_t key_size)
         list->head->prev = node;
     list->head = node;
     if (!list->tail)
-      list->tail = node;
+        list->tail = node;
 }
 
 void ll_create_tail_node(ll_list * list, void *key, size_t key_size)
@@ -38,7 +38,7 @@ void ll_create_tail_node(ll_list * list, void *key, size_t key_size)
         list->tail->next = node;
     list->tail = node;
     if (!list->head)
-      list->head = node;
+        list->head = node;
 }
 
 void ll_destroy_node(ll_list * list, ll_node * node)
@@ -54,9 +54,9 @@ void ll_destroy_node(ll_list * list, ll_node * node)
     free(node);
 }
 
-void ll_insert_node(ll_list * list, ll_node *node)
+void ll_insert_node(ll_list * list, ll_node * node)
 {
-    node->prev = NULL; // not necessary if node is clean, but still...
+    node->prev = NULL;          // not necessary if node is clean, but still...
     node->next = list->head;
 
     if (list->head)
