@@ -54,6 +54,13 @@ void ll_destroy_node(ll_list * list, ll_node * node)
     free(node);
 }
 
+void ll_destroy_node_and_value(ll_list *list, ll_node *node){
+    void *vp;
+    if (node) vp = node->key;
+    ll_destroy_node(list, node);
+    free(vp);
+}
+
 void ll_insert_node(ll_list * list, ll_node * node)
 {
     node->prev = NULL;          // not necessary if node is clean, but still...

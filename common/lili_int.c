@@ -9,14 +9,18 @@ ll_node *ll_search_int(ll_list * list, int value)
     return ll_search(list, &value, sizeof(int));
 }
 
-void ll_create_head_node_int(ll_list * list, int *value)
+void ll_create_head_node_int(ll_list * list, int value)
 {
-    ll_create_head_node(list, (void *) value, sizeof(int));
+    int *vp = malloc(sizeof(int));
+    *vp = value;
+    ll_create_head_node(list, vp, sizeof(int));
 }
 
-void ll_create_tail_node_int(ll_list * list, int *value)
+void ll_create_tail_node_int(ll_list * list, int value)
 {
-    ll_create_tail_node(list, (void *) value, sizeof(int));
+    int *vp = malloc(sizeof(int));
+    *vp = value;
+    ll_create_tail_node(list, vp, sizeof(int));
 }
 
 int ll_node_get_int(ll_node * node)

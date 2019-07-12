@@ -107,7 +107,7 @@ void test_ll_int_insert()
     ll_print_int(l);
 
     int n = 4.0;
-    ll_create_head_node_int(l, &n);
+    ll_create_head_node_int(l, n);
     ll_print_int(l);
 
     assert(*ll_get_int(l, 0) == 4);

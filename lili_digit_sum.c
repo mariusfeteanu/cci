@@ -19,20 +19,15 @@ ll_list *ll_digit_sum(ll_list * x, ll_list * y)
             yn = yn->next;
         }
 
-        int *magic_int = malloc(sizeof(int));
-        *magic_int = current_sum % 10;
-
         // this cheats by inserting at the end
         // but you can easily do this on a sinle linked list
-        ll_create_tail_node_int(sum, magic_int);
+        ll_create_tail_node_int(sum, current_sum % 10);
         carry = current_sum / 10;
     }
 
     if (carry) {
-        int *magic_int = malloc(sizeof(int));
-        *magic_int = carry;
         // ditto
-        ll_create_tail_node_int(sum, magic_int);
+        ll_create_tail_node_int(sum, carry);
     }
 
     return sum;
@@ -57,37 +52,31 @@ ll_list *ll_digit_rev_sum(ll_list * x, ll_list * y)
         excess = yl - xl;
     }
 
-    int *magic_int;
     ll_node *lnode = ll->head;
     while (excess) {
-        magic_int = malloc(sizeof(int));
-        *magic_int = ll_node_get_int(lnode);
-        ll_create_head_node_int(simple_sum, magic_int);
+        ll_create_head_node_int(simple_sum, ll_node_get_int(lnode));
         lnode = lnode->next;
         excess--;
     }
 
     ll_node *snode = sl->head;
     while (snode) {
-        magic_int = malloc(sizeof(int));
-        *magic_int = ll_node_get_int(snode) + ll_node_get_int(lnode);
-        ll_create_head_node_int(simple_sum, magic_int);
+        int s = ll_node_get_int(snode) + ll_node_get_int(lnode);
+        ll_create_head_node_int(simple_sum, s);
         lnode = lnode->next;
         snode = snode->next;
     }
 
     // some space in case the lists are the same size but they sum longer
-    ll_create_tail_node_int(simple_sum, (int *) calloc(1, sizeof(int)));
+    ll_create_tail_node_int(simple_sum, 0);
 
     ll_node *node = simple_sum->head;
     ll_list *sum = ll_empty();
     int carry = 0;
     while (node) {
-        magic_int = malloc(sizeof(int));
         int s = carry + ll_node_get_int(node);
-        *magic_int = s % 10;
         carry = s / 10;
-        ll_create_head_node_int(sum, magic_int);
+        ll_create_head_node_int(sum, s % 10);
         node = node->next;
     }
 
