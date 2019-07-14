@@ -23,8 +23,8 @@ void ll_create_head_node(ll_list * list, void *key, size_t key_size);
 void ll_create_tail_node(ll_list * list, void *key, size_t key_size);
 void ll_destroy_node(ll_list * list, ll_node * node);
 void ll_destroy_node_and_value(ll_list * list, ll_node * node);
-void ll_destroy(ll_list *list);
-void ll_destroy_all(ll_list *list);
+void ll_destroy(ll_list * list);
+void ll_destroy_all(ll_list * list);
 // node based
 void ll_insert_node(ll_list * list, ll_node * node);
 void ll_remove_node(ll_list * list, ll_node * node);

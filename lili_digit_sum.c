@@ -18,7 +18,6 @@ ll_list *ll_digit_sum(ll_list * x, ll_list * y)
             current_sum += ll_node_get_int(yn);
             yn = yn->next;
         }
-
         // this cheats by inserting at the end
         // but you can easily do this on a sinle linked list
         ll_create_tail_node_int(sum, current_sum % 10);

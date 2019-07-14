@@ -54,16 +54,19 @@ void ll_destroy_node(ll_list * list, ll_node * node)
     free(node);
 }
 
-void ll_destroy_node_and_value(ll_list *list, ll_node *node){
+void ll_destroy_node_and_value(ll_list * list, ll_node * node)
+{
     void *vp;
-    if (node) vp = node->key;
+    if (node)
+        vp = node->key;
     ll_destroy_node(list, node);
     free(vp);
 }
 
-void ll_destroy(ll_list *list){
+void ll_destroy(ll_list * list)
+{
     ll_node *node = list->head;
-    while(node){
+    while (node) {
         ll_node *next = node->next;
         ll_destroy_node(list, node);
         node = next;
@@ -71,9 +74,10 @@ void ll_destroy(ll_list *list){
     free(list);
 }
 
-void ll_destroy_all(ll_list *list){
+void ll_destroy_all(ll_list * list)
+{
     ll_node *node = list->head;
-    while(node){
+    while (node) {
         ll_node *next = node->next;
         ll_destroy_node_and_value(list, node);
         node = next;

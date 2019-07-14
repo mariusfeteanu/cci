@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 #include "common/lili.h"
 
 void ll_partition(ll_list * list, int pv)
