@@ -3,38 +3,34 @@
 #include <stdlib.h>
 #include "common/lili.h"
 
-// Removes a middle node from a single linked list
-// We don't have one, so we pretend by not touching prev
-//  on a doubly linked - this breaks it but it's okay for this example
 // This only works for middle nodes
 // (not heads or tails)
-void lls_remove(ll_node * node)
+void ll_remove_mid(ll_node * node)
 {
     ll_node *next = node->next;
 
-    node->key = next->key;
-    node->key_size = next->key_size;
+    node->value = next->value;
     node->next = next->next;
     free(next);
 }
 
 #ifdef TEST_lili_single_remove
-void test_ll_destroy_node()
+void test_ll_remove_mid()
 {
     int vals[] = { 4, 7, 6, 5 };
-    ll_list *l = ll_from_array(vals, 4, sizeof(int));
+    ll_node *l = ll_from_array(vals, 4);
 
     int expected_vals[] = { 4, 7, 5 };
-    ll_list *e = ll_from_array(expected_vals, 3, sizeof(int));
+    ll_node *e = ll_from_array(expected_vals, 3);
 
     printf("Checking removing nodes from list:\n");
-    ll_print_int(l);
+    ll_print(l);
     printf("Expecting:\n");
-    ll_print_int(e);
+    ll_print(e);
 
-    lls_remove(l->head->next->next);
+    ll_remove_mid(l->next->next);
     printf("Result:\n");
-    ll_print_int(l);
+    ll_print(l);
 
     assert(ll_eq(l, e));
 
@@ -46,6 +42,6 @@ int main()
 {
     setbuf(stdout, NULL);
 
-    test_ll_destroy_node();
+    test_ll_remove_mid();
 }
 #endif

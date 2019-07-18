@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-void ll_dedup(ll_list * list)
+void ll_dedup(ll_node *node)
 {
-    ll_node *node, *dup_runner;
+    ll_node *dup_runner;
 
-    node = list->head;
     while (node) {
         dup_runner = node->next;
         while (dup_runner) {
-            if (ll_node_eq(node, dup_runner)) {
+            if (node->value == dup_runner->value) {
                 ll_node *skip = dup_runner->next;
-                ll_destroy_node(list, dup_runner);
-                dup_runner = skip;
+                dup_runner->value = skip->value;
+                dup_runner->next = skip->next;
+                free(skip);
+                // TODO: handle case where duplicates is last element in list
             } else {
                 dup_runner = dup_runner->next;
             }
@@ -24,21 +25,21 @@ void ll_dedup(ll_list * list)
 #ifdef TEST_lili_dedup
 void test_ll_dedup()
 {
-    printf("Checking duplicate removal (by value, integers, buffered).\n");
+    printf("Checking duplicate removal\n");
 
-    int vals[] = { 4, 2, 1, 4, 10, 13, 4, 1, 2 };
-    ll_list *l = ll_from_array(vals, 9, sizeof(int));
+    int vals[] = { 4, 2, 1, 4, 10, 13, 4, 1, 2, 8 };
+    ll_node *l = ll_from_array(vals, 10);
 
-    int dedup_vals[] = { 4, 2, 1, 10, 13 };
-    ll_list *d = ll_from_array(dedup_vals, 5, sizeof(int));
+    int dedup_vals[] = { 4, 2, 1, 10, 13, 8 };
+    ll_node *d = ll_from_array(dedup_vals, 6);
 
-    ll_print_int(l);
+    ll_print(l);
     printf("Expected list:\n");
-    ll_print_int(d);
+    ll_print(d);
 
     ll_dedup(l);
     printf("Result:\n");
-    ll_print_int(l);
+    ll_print(l);
 
     assert(ll_eq(l, d));
     ll_destroy(l);

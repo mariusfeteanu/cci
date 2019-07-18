@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-ll_node *ll_find_klast(ll_list * list, int k)
+ll_node *ll_find_klast(ll_node *node, int k)
 {
-    ll_node *runn = list->head;
-    ll_node *curr = list->head;
+    ll_node *runn = node;
+    ll_node *curr = node;
 
     // run ahead k steps
     while (k > 0 && runn->next) {
@@ -23,16 +23,16 @@ ll_node *ll_find_klast(ll_list * list, int k)
 #ifdef TEST_lili_find_klast
 void test_ll_find_klast()
 {
-    printf("Checking duplicate removal (by value, integers, buffered).\n");
+    printf("Finding klast.\n");
 
     int vals[] = { 4, 2, 1, 4, 10, 13, 5, 6, 7 };
-    ll_list *l = ll_from_array(vals, 9, sizeof(int));
+    ll_node *l = ll_from_array(vals, 9);
 
     int expected_last = 13;
 
-    ll_print_int(l);
+    ll_print(l);
 
-    int klast = ll_node_get_int(ll_find_klast(l, 3));
+    int klast = ll_find_klast(l, 3)->value;
     printf("Expected %d, found %d.\n", expected_last, klast);
 
     assert(expected_last == klast);
@@ -42,16 +42,16 @@ void test_ll_find_klast()
 
 void test_ll_find_klast_single()
 {
-    printf("Checking duplicate removal (by value, integers, buffered).\n");
+    printf("Finding klast.\n");
 
     int vals[] = { 4 };
-    ll_list *l = ll_from_array(vals, 1, sizeof(int));
+    ll_node *l = ll_from_array(vals, 1);
 
     int expected_last = 4;
 
-    ll_print_int(l);
+    ll_print(l);
 
-    int klast = ll_node_get_int(ll_find_klast(l, 1));
+    int klast = ll_find_klast(l, 1)->value;
     printf("Expected %d, found %d.\n", expected_last, klast);
 
     assert(expected_last == klast);
