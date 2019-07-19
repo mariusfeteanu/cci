@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-void ll_dedup(ll_node *node)
+void ll_dedup(ll_node * node)
 {
     ll_node *dup_runner;
 

@@ -69,6 +69,7 @@ clean:
 	@mkdir -p indent/common
 	@VERSION_CONTROL=none indent \
 			--k-and-r-style \
+			--pointer-align-right \
 			--no-tabs $< \
 			--output indent/$<~
 	@if cmp --silent indent/$<~ $<; then \

@@ -6,7 +6,7 @@
 #ifdef TEST_test_lili
 void test_ll_eq()
 {
-    ll_node *l = ll_from_array((int []){4, 7, 5, 6}, 4);
+    ll_node *l = ll_from_array((int[]) { 4, 7, 5, 6 }, 4);
 
     assert(ll_eq(l, l));
 
@@ -15,7 +15,7 @@ void test_ll_eq()
 
 void test_ll_search()
 {
-    ll_node *l = ll_from_array((int []){4, 7, 6, 5}, 4);
+    ll_node *l = ll_from_array((int[]) { 4, 7, 6, 5 }, 4);
 
     printf("Searching for a value in a list of ints.\n");
     ll_print(l);
@@ -29,7 +29,7 @@ void test_ll_search()
 
 void test_ll_remove()
 {
-    ll_node *l = ll_from_array((int []){4, 7, 6, 5}, 4);
+    ll_node *l = ll_from_array((int[]) { 4, 7, 6, 5 }, 4);
 
     printf("Remove a value from a list of ints.\n");
     ll_print(l);
@@ -44,7 +44,7 @@ void test_ll_remove()
 
 void test_ll_insert()
 {
-    ll_node *l = ll_from_array((int[]){ 7, 6, 5 }, 3);
+    ll_node *l = ll_from_array((int[]) { 7, 6, 5 }, 3);
 
     printf("Checking insertion into linked list of ints.\n");
 

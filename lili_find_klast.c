@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "common/lili.h"
 
-ll_node *ll_find_klast(ll_node *node, int k)
+ll_node *ll_find_klast(ll_node * node, int k)
 {
     ll_node *runn = node;
     ll_node *curr = node;

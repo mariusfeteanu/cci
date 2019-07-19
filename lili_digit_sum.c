@@ -27,7 +27,7 @@ ll_node *ll_digit_sum(ll_node * x, ll_node * y)
     ll_node *rev_sum = NULL;
     ll_node *sum_head = sum;
 
-    while(sum){
+    while (sum) {
         rev_sum = ll_insert(rev_sum, sum->value);
         sum = sum->next;
     }
@@ -81,12 +81,10 @@ int main()
                       ll_from_array((int[]) { 9 }, 1)
         );
 
-    test_ll_digit_sum(NULL,
-                      ll_from_array((int[]) { 1 }, 1),
+    test_ll_digit_sum(NULL, ll_from_array((int[]) { 1 }, 1),
                       ll_from_array((int[]) { 1 }, 1)
         );
 
-    test_ll_digit_sum(NULL, NULL, NULL
-        );
+    test_ll_digit_sum(NULL, NULL, NULL);
 }
 #endif

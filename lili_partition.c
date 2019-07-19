@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "common/lili.h"
 
-ll_node *ll_partition(ll_node *node, int pv)
+ll_node *ll_partition(ll_node * node, int pv)
 {
     ll_node *second_part = NULL, *prev = NULL, *first_part = NULL;
 
@@ -12,9 +12,10 @@ ll_node *ll_partition(ll_node *node, int pv)
 
         if (nv >= pv) {
             second_part = ll_insert(second_part, nv);
-            if(prev) prev->next = ll_remove(node);
+            if (prev)
+                prev->next = ll_remove(node);
         } else {
-            if(!first_part){
+            if (!first_part) {
                 first_part = node;
             }
             prev = node;
@@ -22,7 +23,7 @@ ll_node *ll_partition(ll_node *node, int pv)
         node = next;
     }
 
-    if(first_part){
+    if (first_part) {
         prev->next = second_part;
     } else {
         first_part = second_part;
