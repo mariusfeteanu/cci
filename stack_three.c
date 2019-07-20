@@ -32,8 +32,9 @@ int main()
     int storage[ST_SIZE] = { 0 };
 
     stack *s1 = stack_create(storage, 2, 1);
-    stack *s2 = stack_create(storage + 2, 3, 1);
-    stack *s3 = stack_create(storage + ST_SIZE - 1, 5, -1);
+    // both tail stacks get all the remaining space
+    stack *s2 = stack_create(storage + 2, 8, 1);
+    stack *s3 = stack_create(storage + ST_SIZE - 1, 8, -1);
 
     print_all(storage, s1, s2, s3);
 
