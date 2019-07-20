@@ -40,8 +40,7 @@ ll_node *ll_intersection(ll_node * left, ll_node * right)
 
 #ifdef TEST_lili_intersect
 void test_ll_is_intersection(ll_node * left,
-                             ll_node * right,
-                             ll_node * intersect)
+                             ll_node * right, ll_node * intersect)
 {
     printf("Checking that the following lists intersect:\n");
     ll_print(left);
@@ -53,12 +52,12 @@ void test_ll_is_intersection(ll_node * left,
 
     ll_node *next;
 
-    while(left != intersect){
+    while (left != intersect) {
         next = left->next;
         free(left);
         left = next;
     }
-    while(right != intersect){
+    while (right != intersect) {
         next = right->next;
         free(right);
         right = next;
