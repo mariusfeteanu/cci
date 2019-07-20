@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "stack.h"
 
 //typedef struct stack_s {
-//    int max_size;
+//    int free_space;
 //    int *head;
 //    int stride;
 //    int *storage;
@@ -12,7 +13,7 @@
 stack *stack_create(int *storage, int max_size, int stride){
     stack *empty = malloc(sizeof(stack));
 
-   empty->max_size = max_size;
+   empty->free_space = max_size;
    empty->head = NULL;
    empty->stride = stride;
    empty->storage = storage;
@@ -31,16 +32,20 @@ int stack_pop(stack *s){
     } else {
         s->head -= s->stride;
     }
+    s->free_space++;
     return value;
 }
 
 void stack_push(stack *s, int value){
+    assert(s->free_space);
+
     if(s->head){
         s->head += s->stride;
     } else {
         s->head = s->storage;
     }
     *(s->head) = value;
+    s->free_space--;
 }
 
 int stack_peek(stack *s){

@@ -1,5 +1,5 @@
 typedef struct stack_s {
-    int max_size;
+    int free_space;
     int *head;
     int stride;
     int *storage;
