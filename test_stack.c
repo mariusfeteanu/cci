@@ -13,15 +13,21 @@ void test_stack()
     assert(stack_is_empty(s));
     stack_print(s);
 
-    stack_push(s, 5); stack_print(s);
-    stack_push(s, 6); stack_print(s);
-    stack_push(s, 7); stack_print(s);
+    stack_push(s, 5);
+    stack_print(s);
+    stack_push(s, 6);
+    stack_print(s);
+    stack_push(s, 7);
+    stack_print(s);
 
     assert(stack_peek(s) == 7);
 
-    assert(stack_pop(s) == 7); stack_print(s);
-    assert(stack_pop(s) == 6); stack_print(s);
-    assert(stack_pop(s) == 5); stack_print(s);
+    assert(stack_pop(s) == 7);
+    stack_print(s);
+    assert(stack_pop(s) == 6);
+    stack_print(s);
+    assert(stack_pop(s) == 5);
+    stack_print(s);
 
     stack_destroy(s);
 }

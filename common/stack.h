@@ -6,9 +6,9 @@ typedef struct stack_s {
 } stack;
 
 stack *stack_create(int *storage, int max_size, int stride);
-void stack_destroy(stack *s);
-int stack_pop(stack *s);
-void stack_push(stack *s, int value);
-int stack_peek(stack *s);
-int stack_is_empty(stack *s);
-void stack_print(stack *s);
+void stack_destroy(stack * s);
+int stack_pop(stack * s);
+void stack_push(stack * s, int value);
+int stack_peek(stack * s);
+int stack_is_empty(stack * s);
+void stack_print(stack * s);

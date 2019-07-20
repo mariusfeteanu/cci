@@ -10,24 +10,27 @@
 //    int *storage;
 //} stack;
 
-stack *stack_create(int *storage, int max_size, int stride){
+stack *stack_create(int *storage, int max_size, int stride)
+{
     stack *empty = malloc(sizeof(stack));
 
-   empty->free_space = max_size;
-   empty->head = NULL;
-   empty->stride = stride;
-   empty->storage = storage;
+    empty->free_space = max_size;
+    empty->head = NULL;
+    empty->stride = stride;
+    empty->storage = storage;
 
-   return empty;
+    return empty;
 }
 
-void stack_destroy(stack *s){
+void stack_destroy(stack * s)
+{
     free(s);
 }
 
-int stack_pop(stack *s){
+int stack_pop(stack * s)
+{
     int value = *s->head;
-    if(s->head == s->storage){
+    if (s->head == s->storage) {
         s->head = NULL;
     } else {
         s->head -= s->stride;
@@ -36,10 +39,11 @@ int stack_pop(stack *s){
     return value;
 }
 
-void stack_push(stack *s, int value){
+void stack_push(stack * s, int value)
+{
     assert(s->free_space);
 
-    if(s->head){
+    if (s->head) {
         s->head += s->stride;
     } else {
         s->head = s->storage;
@@ -48,25 +52,29 @@ void stack_push(stack *s, int value){
     s->free_space--;
 }
 
-int stack_peek(stack *s){
+int stack_peek(stack * s)
+{
     return *s->head;
 }
 
-int stack_is_empty(stack *s){
+int stack_is_empty(stack * s)
+{
     return !s->head;
 }
 
-void stack_print(stack *s){
+void stack_print(stack * s)
+{
     printf("[>> ");
     int *head = s->head;
-    while(head){
+    while (head) {
         printf("%d", *head);
-        if(head != s->storage){
+        if (head != s->storage) {
             head -= s->stride;
         } else {
             head = NULL;
         }
-        if(head) printf(" | ");
+        if (head)
+            printf(" | ");
     }
     printf(" ]\n");
 }

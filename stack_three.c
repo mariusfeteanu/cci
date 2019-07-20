@@ -5,28 +5,35 @@
 
 #define ST_SIZE 10
 
-void print_storage(int *storage){
+void print_storage(int *storage)
+{
     printf("< ");
-    for(int i=0; i<ST_SIZE; i++){
+    for (int i = 0; i < ST_SIZE; i++) {
         printf("%d ", storage[i]);
     }
     printf(">\n");
 }
 
-void print_all(int *storage, stack *s1, stack *s2, stack *s3){
-    printf("s1: "); stack_print(s1);
-    printf("s2: "); stack_print(s2);
-    printf("s3: "); stack_print(s3);
-    printf("st: "); print_storage(storage);
+void print_all(int *storage, stack * s1, stack * s2, stack * s3)
+{
+    printf("s1: ");
+    stack_print(s1);
+    printf("s2: ");
+    stack_print(s2);
+    printf("s3: ");
+    stack_print(s3);
+    printf("st: ");
+    print_storage(storage);
 }
 
 #ifdef TEST_stack_three
-int main(){
+int main()
+{
     int storage[ST_SIZE] = { 0 };
 
     stack *s1 = stack_create(storage, 2, 1);
-    stack *s2 = stack_create(storage+2, 3, 1);
-    stack *s3 = stack_create(storage+ST_SIZE-1, 5, -1);
+    stack *s2 = stack_create(storage + 2, 3, 1);
+    stack *s3 = stack_create(storage + ST_SIZE - 1, 5, -1);
 
     print_all(storage, s1, s2, s3);
 
