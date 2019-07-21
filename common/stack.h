@@ -1,3 +1,4 @@
+#pragma once
 typedef struct stack_s {
     int free_space;
     int *head;
