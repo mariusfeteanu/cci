@@ -19,9 +19,9 @@ All of these were written by my in order improve my coding and interview skills.
 
 All code is compiled using C11 and all warnings are considered errors. Tests are included in each file and executed automatically.
 
-This is tested with gcc and clang on linux and osx.
+This is tested with gcc on linux.
 
-Library use is kept to a minimum. Even standard library functions are only used when not part of the specified problem, and if they would not modify the time or space complexity of the algo.
+Library use is kept to a minimum. Even standard library functions are only used when not part of the specified problem, and if they would not modify the time or space complexity of the solution.
 
 The C style was kept as idiomatic as I can. Performance and readability are both equal concerns and I have tried to strike a balance between the two.
 
@@ -31,4 +31,4 @@ Everything goes in the root. No problem numbers are included as these might chan
 
 Each file is prefixed with the concept or data structure it applies to.
 
-Some (like matrix.c) are just helper code. These are included when needed using the pre-processor, just to keep the makefile simple.
+Helper code goes into the `common` directory. These get compiled separately but they also have tests.
