@@ -26,14 +26,14 @@ void print_all(int *storage, stack * s1, stack * s2, stack * s3)
     print_storage(storage);
 }
 
-int stack_shared_push(stack *main_stack,
-                       stack *shared_stack,
-                       int shared_space,
-                       int value){
-    int total_free_space = main_stack->free_space + shared_stack->free_space - shared_space;
-    assert(total_free_space>0);
+int stack_shared_push(stack * main_stack,
+                      stack * shared_stack, int shared_space, int value)
+{
+    int total_free_space =
+        main_stack->free_space + shared_stack->free_space - shared_space;
+    assert(total_free_space > 0);
     stack_push(main_stack, value);
-    return total_free_space - 1; // account for the one we just allocated
+    return total_free_space - 1;        // account for the one we just allocated
 }
 
 #ifdef TEST_stack_three
@@ -53,11 +53,11 @@ int main()
 
     stack_push(s1, 2);
     printf("shared space left: %d.\n",
-           stack_shared_push(s2, s3, ST_SIZE-2, 3));
+           stack_shared_push(s2, s3, ST_SIZE - 2, 3));
     printf("shared space left: %d.\n",
-           stack_shared_push(s3, s2, ST_SIZE-2, 10));
+           stack_shared_push(s3, s2, ST_SIZE - 2, 10));
     printf("shared space left: %d.\n",
-           stack_shared_push(s3, s3, ST_SIZE-2, 9));
+           stack_shared_push(s3, s3, ST_SIZE - 2, 9));
     print_all(storage, s1, s2, s3);
 
     assert(storage[0] == 1);
