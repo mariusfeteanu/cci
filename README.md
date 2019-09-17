@@ -6,7 +6,7 @@ Solutions for [Cracking the Coding Interview](http://www.amazon.com/Cracking-Cod
 
 ## Pre-requisites
 1. A POSIX compatible OS.
-2. A c compiler.
+2. A C compiler.
 3. GNU Make
 
 ## How to build and test
