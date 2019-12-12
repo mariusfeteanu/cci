@@ -1,3 +1,4 @@
+SHELL = bash
 CFLAGS=-g -Wall -Werror -O0 -pedantic -std=c11
 LDLIBS=
 CC=cc
